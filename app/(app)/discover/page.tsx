@@ -68,6 +68,7 @@ export default function DiscoverPage() {
         .from("users")
         .select("*")
         .eq("onboarding_complete", true)
+        .eq("is_admin", false)
         .neq("id", user.id)
         .limit(100);
 

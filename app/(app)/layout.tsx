@@ -14,11 +14,13 @@ export default async function AppLayout({ children }: { children: React.ReactNod
 
   const { data: profile } = await supabase
     .from("users")
-    .select("onboarding_complete")
+    .select("onboarding_complete, is_admin")
     .eq("id", user.id)
     .maybeSingle();
 
-  if (!profile?.onboarding_complete) {
+  // Admins (the Nomara team) go straight to the dashboard without the
+  // member onboarding; they also never appear in the Discover deck.
+  if (!profile?.onboarding_complete && !profile?.is_admin) {
     redirect("/onboarding");
   }
 

@@ -33,11 +33,13 @@ export default function SignInPage() {
 
     const { data: profile } = await supabase
       .from("users")
-      .select("onboarding_complete")
+      .select("onboarding_complete, is_admin")
       .eq("id", data.user.id)
       .maybeSingle();
 
-    router.push(profile?.onboarding_complete ? "/discover" : "/onboarding");
+    if (profile?.onboarding_complete) router.push("/discover");
+    else if (profile?.is_admin) router.push("/admin");
+    else router.push("/onboarding");
   }
 
   return (
