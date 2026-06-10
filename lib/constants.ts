@@ -66,6 +66,14 @@ export const PROFILE_PROMPTS = [
   "The trip that changed me:",
 ];
 
+export const REPORT_REASONS = [
+  "Not a woman",
+  "Made me uncomfortable",
+  "Fake profile",
+  "Spam or selling",
+  "Other",
+];
+
 export const LANGUAGE_OPTIONS = [
   "English",
   "Spanish",

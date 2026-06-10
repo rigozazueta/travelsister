@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { use, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Avatar } from "@/components/Avatar";
+import { ReportModal } from "@/components/ReportModal";
 import { SAFETY_EMAIL } from "@/lib/constants";
 import { supabaseBrowser } from "@/lib/supabase/client";
 import type { DirectMessage, Profile } from "@/lib/types";
@@ -11,12 +13,14 @@ import { cn, firstName } from "@/lib/utils";
 export default function ChatPage({ params }: { params: Promise<{ id: string }> }) {
   const { id: conversationId } = use(params);
   const supabase = useMemo(() => supabaseBrowser(), []);
+  const router = useRouter();
 
   const [meId, setMeId] = useState<string | null>(null);
   const [other, setOther] = useState<Profile | null>(null);
   const [messages, setMessages] = useState<DirectMessage[]>([]);
   const [draft, setDraft] = useState("");
   const [sending, setSending] = useState(false);
+  const [reporting, setReporting] = useState(false);
   const endRef = useRef<HTMLDivElement>(null);
 
   const loadMessages = useCallback(async () => {
@@ -140,9 +144,29 @@ export default function ChatPage({ params }: { params: Promise<{ id: string }> }
             >
               Find a trip together 🌍
             </Link>
+            <button
+              onClick={() => setReporting(true)}
+              className="rounded-full px-2 py-1 text-lg text-ink-soft hover:text-terracotta"
+              title="Report or block"
+              aria-label="Report or block"
+            >
+              ⚑
+            </button>
           </>
         )}
       </div>
+
+      {reporting && other && meId && (
+        <ReportModal
+          reporterId={meId}
+          target={other}
+          onClose={() => setReporting(false)}
+          onDone={(blocked) => {
+            setReporting(false);
+            if (blocked) router.push("/messages");
+          }}
+        />
+      )}
 
       <p className="mx-auto mt-3 max-w-md text-center text-[11px] leading-relaxed text-ink-soft">
         Be kind, trust your gut, and keep first meetups public. Anything off?{" "}

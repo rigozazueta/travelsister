@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Avatar } from "@/components/Avatar";
 import { Chip } from "@/components/Chip";
+import { ProfileModal } from "@/components/ProfileModal";
+import { ReportModal } from "@/components/ReportModal";
 import { supabaseBrowser } from "@/lib/supabase/client";
 import type { Profile } from "@/lib/types";
 import { timeAgo } from "@/lib/utils";
@@ -21,6 +23,8 @@ export default function SistersPage() {
   const [sentCount, setSentCount] = useState(0);
   const [sisters, setSisters] = useState<Sister[]>([]);
   const [loading, setLoading] = useState(true);
+  const [viewing, setViewing] = useState<Profile | null>(null);
+  const [reporting, setReporting] = useState<Profile | null>(null);
 
   const load = useCallback(async () => {
     const {
@@ -126,12 +130,14 @@ export default function SistersPage() {
                 key={req.id}
                 className="animate-rise flex flex-wrap items-center gap-4 rounded-3xl bg-white p-4 shadow-card"
               >
-                <Avatar
-                  name={req.profile.full_name}
-                  photoUrl={req.profile.profile_photo_url}
-                  size="lg"
-                />
-                <div className="min-w-0 flex-1">
+                <button onClick={() => setViewing(req.profile)} aria-label="View profile">
+                  <Avatar
+                    name={req.profile.full_name}
+                    photoUrl={req.profile.profile_photo_url}
+                    size="lg"
+                  />
+                </button>
+                <div className="min-w-0 flex-1 cursor-pointer" onClick={() => setViewing(req.profile)}>
                   <p className="font-display text-lg font-semibold text-ink">
                     {req.profile.full_name}
                     {req.profile.age ? `, ${req.profile.age}` : ""}
@@ -192,8 +198,10 @@ export default function SistersPage() {
                 key={profile.id}
                 className="animate-rise flex items-center gap-4 rounded-3xl bg-white p-4 shadow-card"
               >
-                <Avatar name={profile.full_name} photoUrl={profile.profile_photo_url} size="lg" />
-                <div className="min-w-0 flex-1">
+                <button onClick={() => setViewing(profile)} aria-label="View profile">
+                  <Avatar name={profile.full_name} photoUrl={profile.profile_photo_url} size="lg" />
+                </button>
+                <div className="min-w-0 flex-1 cursor-pointer" onClick={() => setViewing(profile)}>
                   <p className="truncate font-display text-lg font-semibold text-ink">
                     {profile.full_name}
                   </p>
@@ -211,6 +219,34 @@ export default function SistersPage() {
           </div>
         )}
       </section>
+
+      {viewing && (
+        <ProfileModal
+          profile={viewing}
+          onClose={() => setViewing(null)}
+          onMessage={
+            sisters.some((s) => s.profile.id === viewing.id)
+              ? () => message(viewing.id)
+              : undefined
+          }
+          onReport={() => {
+            setReporting(viewing);
+            setViewing(null);
+          }}
+        />
+      )}
+
+      {reporting && meId && (
+        <ReportModal
+          reporterId={meId}
+          target={reporting}
+          onClose={() => setReporting(null)}
+          onDone={async () => {
+            setReporting(null);
+            await load();
+          }}
+        />
+      )}
 
       {meId && sisters.length > 0 && (
         <section className="rounded-3xl bg-blush/40 p-6 text-center">

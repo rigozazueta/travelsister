@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { Chip } from "@/components/Chip";
 import { Logo } from "@/components/Logo";
+import { PhotoUpload } from "@/components/PhotoUpload";
 import {
   ACTIVITY_NAMES,
   LANGUAGE_OPTIONS,
@@ -380,28 +381,29 @@ export default function OnboardingPage() {
                 className="w-full rounded-xl border border-sand-deep px-3 py-2 text-sm outline-none focus:border-terracotta"
               />
             </div>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <label className="block">
-                <span className="text-sm font-semibold text-ink">Instagram (optional)</span>
-                <input
-                  type="text"
-                  value={instagram}
-                  onChange={(e) => setInstagram(e.target.value)}
-                  placeholder="@yourhandle"
-                  className="mt-1.5 w-full rounded-2xl border border-sand-deep bg-white px-4 py-3 outline-none focus:border-terracotta"
-                />
-              </label>
-              <label className="block">
-                <span className="text-sm font-semibold text-ink">Photo URL (optional)</span>
-                <input
-                  type="url"
-                  value={photoUrl}
-                  onChange={(e) => setPhotoUrl(e.target.value)}
-                  placeholder="https://…"
-                  className="mt-1.5 w-full rounded-2xl border border-sand-deep bg-white px-4 py-3 outline-none focus:border-terracotta"
-                />
-              </label>
+            <div>
+              <span className="text-sm font-semibold text-ink">Profile photo (optional)</span>
+              <div className="mt-2 rounded-2xl bg-white p-4 shadow-card">
+                {userId && (
+                  <PhotoUpload
+                    userId={userId}
+                    name={fullName}
+                    value={photoUrl}
+                    onChange={setPhotoUrl}
+                  />
+                )}
+              </div>
             </div>
+            <label className="block">
+              <span className="text-sm font-semibold text-ink">Instagram (optional)</span>
+              <input
+                type="text"
+                value={instagram}
+                onChange={(e) => setInstagram(e.target.value)}
+                placeholder="@yourhandle"
+                className="mt-1.5 w-full rounded-2xl border border-sand-deep bg-white px-4 py-3 outline-none focus:border-terracotta"
+              />
+            </label>
             <p className="text-xs text-ink-soft">
               No photo? No problem — you’ll get a beautiful initials avatar until you add one.
             </p>

@@ -27,6 +27,15 @@ Nomara trips on nomaratravel.com with `utm_source=travelsister` tracking.
    nomaratravel.com.
 6. **Funnel leads** — the public landing page captures emails into
    `funnel_leads` for marketing.
+7. **Report & block** — flag a profile from Discover, a sister's profile, or any
+   chat. Blocking severs the friendship, hides both members from each other, and
+   disables messaging in both directions (enforced in the database). Reports land
+   in the admin queue.
+8. **Admin dashboard** (`/admin`, admins only) — community stats, the member list
+   with a one-tap verification toggle, funnel leads (with copy-all-emails), and
+   the safety report queue.
+9. **Photo uploads** — members upload profile photos to Supabase Storage
+   (`avatars` bucket, 5 MB limit, locked to each member's own folder).
 
 ## Running it
 
@@ -79,14 +88,19 @@ match → message flow. Delete these accounts before a public launch.
 | `trips` | Nomara trip catalog shown in-app (booking links → nomaratravel.com) |
 | `trip_members`, `messages` | Free "trip circles" with member-only group chat |
 | `funnel_leads` | Landing-page email capture (anon can insert, only admins read) |
+| `blocks` | Member blocks (symmetric hiding + message ban via `block_member` RPC) |
+| `member_reports` | Safety reports; admin-only queue surfaced in `/admin` |
+| `storage.avatars` | Profile photo bucket; public read, members write only their own folder |
 
 ### Women-only enforcement
 
 - Sign-up and onboarding both require the women-only attestation (timestamped).
-- `verification_status` (`pending` → `verified`) supports a manual or
-  ID-verification review step later; verified members get a badge.
+- `verification_status` (`pending` → `verified`) is managed from `/admin`;
+  verified members get a badge. ("Not a woman" is the first report reason —
+  those reports are the enforcement signal.)
 - Community guidelines live at `/safety` and are agreed to at join time.
-- Reports go to `hello@nomaratravel.com` (see `lib/constants.ts`).
+- In-app report & block on every profile and conversation; escalations go to
+  `hello@nomaratravel.com` (see `lib/constants.ts`).
 
 ## Deploying (e.g. Vercel)
 

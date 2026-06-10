@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { Avatar } from "@/components/Avatar";
 import { Chip } from "@/components/Chip";
+import { ReportModal } from "@/components/ReportModal";
 import { nomaraLink } from "@/lib/constants";
 import { supabaseBrowser } from "@/lib/supabase/client";
 import type { Profile } from "@/lib/types";
@@ -22,6 +23,7 @@ export default function DiscoverPage() {
   const [busy, setBusy] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const [match, setMatch] = useState<Candidate | null>(null);
+  const [reporting, setReporting] = useState<Candidate | null>(null);
 
   useEffect(() => {
     (async () => {
@@ -30,17 +32,23 @@ export default function DiscoverPage() {
       } = await supabase.auth.getUser();
       if (!user) return;
 
-      const [{ data: myProfile }, { data: swipes }, { data: friends }, { data: requests }] =
-        await Promise.all([
-          supabase.from("users").select("*").eq("id", user.id).single(),
-          supabase.from("swipes").select("target_user_id").eq("user_id", user.id),
-          supabase.from("friendships").select("friend_id").eq("user_id", user.id),
-          supabase
-            .from("friend_requests")
-            .select("id, from_user_id, to_user_id, status")
-            .or(`from_user_id.eq.${user.id},to_user_id.eq.${user.id}`)
-            .eq("status", "pending"),
-        ]);
+      const [
+        { data: myProfile },
+        { data: swipes },
+        { data: friends },
+        { data: requests },
+        { data: blockedIds },
+      ] = await Promise.all([
+        supabase.from("users").select("*").eq("id", user.id).single(),
+        supabase.from("swipes").select("target_user_id").eq("user_id", user.id),
+        supabase.from("friendships").select("friend_id").eq("user_id", user.id),
+        supabase
+          .from("friend_requests")
+          .select("id, from_user_id, to_user_id, status")
+          .or(`from_user_id.eq.${user.id},to_user_id.eq.${user.id}`)
+          .eq("status", "pending"),
+        supabase.rpc("blocked_user_ids"),
+      ]);
 
       const profile = myProfile as Profile;
       setMe(profile);
@@ -48,6 +56,7 @@ export default function DiscoverPage() {
       const exclude = new Set<string>([user.id]);
       (swipes ?? []).forEach((s) => exclude.add(s.target_user_id as string));
       (friends ?? []).forEach((f) => exclude.add(f.friend_id as string));
+      ((blockedIds ?? []) as string[]).forEach((id) => exclude.add(id));
       // Hide women I already sent a request to; keep women who requested me.
       const incomingByUser = new Map<string, string>();
       (requests ?? []).forEach((r) => {
@@ -286,6 +295,12 @@ export default function DiscoverPage() {
               ✿ Connect
             </button>
           </div>
+          <button
+            onClick={() => setReporting(current)}
+            className="block w-full pb-4 text-center text-xs font-semibold text-ink-soft/70 hover:text-terracotta"
+          >
+            ⚑ Report this profile
+          </button>
         </article>
       ) : (
         <div className="rounded-[2rem] bg-white p-10 text-center shadow-card">
@@ -321,6 +336,24 @@ export default function DiscoverPage() {
         <div className="fixed bottom-24 left-1/2 z-50 -translate-x-1/2 animate-pop rounded-full bg-ink px-6 py-3 text-sm font-bold text-cream shadow-soft md:bottom-10">
           {toast}
         </div>
+      )}
+
+      {/* Report modal */}
+      {reporting && me && (
+        <ReportModal
+          reporterId={me.id}
+          target={reporting}
+          onClose={() => setReporting(null)}
+          onDone={async (blocked) => {
+            // She shouldn't reappear in the deck either way.
+            await supabase
+              .from("swipes")
+              .insert({ user_id: me.id, target_user_id: reporting.id, action: "pass" });
+            setDeck((d) => d.filter((c) => c.id !== reporting.id));
+            setReporting(null);
+            showToast(blocked ? "Reported and blocked. Thank you 🤍" : "Report sent. Thank you 🤍");
+          }}
+        />
       )}
 
       {/* Match modal */}

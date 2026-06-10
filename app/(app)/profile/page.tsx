@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { Avatar } from "@/components/Avatar";
 import { Chip } from "@/components/Chip";
+import { PhotoUpload } from "@/components/PhotoUpload";
 import {
   ACTIVITY_NAMES,
   SAFETY_EMAIL,
@@ -14,11 +15,14 @@ import {
 import { supabaseBrowser } from "@/lib/supabase/client";
 import type { Profile } from "@/lib/types";
 
+type BlockedEntry = { id: string; full_name: string | null; location: string | null };
+
 export default function ProfilePage() {
   const supabase = useMemo(() => supabaseBrowser(), []);
   const router = useRouter();
 
   const [profile, setProfile] = useState<Profile | null>(null);
+  const [blocked, setBlocked] = useState<BlockedEntry[]>([]);
   const [saving, setSaving] = useState(false);
   const [savedAt, setSavedAt] = useState<number | null>(null);
 
@@ -28,10 +32,31 @@ export default function ProfilePage() {
         data: { user },
       } = await supabase.auth.getUser();
       if (!user) return;
-      const { data } = await supabase.from("users").select("*").eq("id", user.id).single();
+      const [{ data }, { data: blockRows }] = await Promise.all([
+        supabase.from("users").select("*").eq("id", user.id).single(),
+        supabase.from("blocks").select("blocked_id").eq("blocker_id", user.id),
+      ]);
       setProfile(data as Profile);
+      const blockedIds = (blockRows ?? []).map((b) => b.blocked_id as string);
+      if (blockedIds.length > 0) {
+        const { data: blockedProfiles } = await supabase
+          .from("users")
+          .select("id, full_name, location")
+          .in("id", blockedIds);
+        setBlocked((blockedProfiles ?? []) as BlockedEntry[]);
+      }
     })();
   }, [supabase]);
+
+  async function unblock(blockedId: string) {
+    if (!profile) return;
+    await supabase
+      .from("blocks")
+      .delete()
+      .eq("blocker_id", profile.id)
+      .eq("blocked_id", blockedId);
+    setBlocked((b) => b.filter((e) => e.id !== blockedId));
+  }
 
   function update<K extends keyof Profile>(key: K, value: Profile[K]) {
     setProfile((p) => (p ? { ...p, [key]: value } : p));
@@ -101,12 +126,22 @@ export default function ProfilePage() {
               : "Verification pending"}
           </span>
         </div>
-        <button
-          onClick={signOut}
-          className="rounded-full border border-sand-deep px-4 py-2 text-sm font-bold text-ink-soft hover:bg-sand"
-        >
-          Sign out
-        </button>
+        <div className="flex flex-col items-end gap-2">
+          {profile.is_admin && (
+            <Link
+              href="/admin"
+              className="rounded-full bg-terracotta px-4 py-2 text-sm font-bold text-white hover:bg-terracotta-deep"
+            >
+              Admin
+            </Link>
+          )}
+          <button
+            onClick={signOut}
+            className="rounded-full border border-sand-deep px-4 py-2 text-sm font-bold text-ink-soft hover:bg-sand"
+          >
+            Sign out
+          </button>
+        </div>
       </div>
 
       {/* Edit form */}
@@ -186,28 +221,28 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
-          <label className="block">
-            <span className="text-sm font-semibold text-ink">Instagram</span>
-            <input
-              type="text"
-              value={profile.instagram_handle ?? ""}
-              onChange={(e) => update("instagram_handle", e.target.value)}
-              placeholder="yourhandle"
-              className="mt-1.5 w-full rounded-2xl border border-sand-deep px-4 py-3 outline-none focus:border-terracotta"
-            />
-          </label>
-          <label className="block">
-            <span className="text-sm font-semibold text-ink">Photo URL</span>
-            <input
-              type="url"
+        <div>
+          <span className="text-sm font-semibold text-ink">Profile photo</span>
+          <div className="mt-2 rounded-2xl bg-cream p-4">
+            <PhotoUpload
+              userId={profile.id}
+              name={profile.full_name}
               value={profile.profile_photo_url ?? ""}
-              onChange={(e) => update("profile_photo_url", e.target.value)}
-              placeholder="https://…"
-              className="mt-1.5 w-full rounded-2xl border border-sand-deep px-4 py-3 outline-none focus:border-terracotta"
+              onChange={(url) => update("profile_photo_url", url)}
             />
-          </label>
+          </div>
         </div>
+
+        <label className="block">
+          <span className="text-sm font-semibold text-ink">Instagram</span>
+          <input
+            type="text"
+            value={profile.instagram_handle ?? ""}
+            onChange={(e) => update("instagram_handle", e.target.value)}
+            placeholder="yourhandle"
+            className="mt-1.5 w-full rounded-2xl border border-sand-deep px-4 py-3 outline-none focus:border-terracotta"
+          />
+        </label>
 
         <button
           onClick={save}
@@ -217,6 +252,38 @@ export default function ProfilePage() {
           {saving ? "Saving…" : savedAt ? "Saved ✓" : "Save changes"}
         </button>
       </section>
+
+      {/* Blocked members */}
+      {blocked.length > 0 && (
+        <section className="space-y-3 rounded-[2rem] bg-white p-6 shadow-card">
+          <h2 className="font-display text-xl font-semibold text-ink">Blocked members</h2>
+          <p className="text-sm text-ink-soft">
+            Blocked members can’t see you in Discover or message you.
+          </p>
+          <ul className="space-y-2">
+            {blocked.map((b) => (
+              <li
+                key={b.id}
+                className="flex items-center justify-between gap-3 rounded-2xl bg-cream px-4 py-3"
+              >
+                <div className="flex items-center gap-3">
+                  <Avatar name={b.full_name} size="sm" />
+                  <div>
+                    <p className="text-sm font-bold text-ink">{b.full_name}</p>
+                    <p className="text-xs text-ink-soft">{b.location}</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => unblock(b.id)}
+                  className="rounded-full border border-sand-deep px-4 py-2 text-xs font-bold text-ink-soft hover:bg-sand"
+                >
+                  Unblock
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {/* Safety footer */}
       <section className="rounded-[2rem] bg-blush/40 p-6 text-center text-sm text-ink-soft">

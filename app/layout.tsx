@@ -8,6 +8,13 @@ export const metadata: Metadata = {
   },
   description:
     "A women-only community for finding travel companions. Match with sisters over yoga, pilates, surf, and nervous system regulation — then meet on a Nomara trip.",
+  openGraph: {
+    title: "TravelSister — Find your travel sisters",
+    description:
+      "A women-only community for finding travel companions, by Nomara. Match over yoga, pilates, surf, and nervous system regulation — then go.",
+    siteName: "TravelSister by Nomara",
+    type: "website",
+  },
 };
 
 export const viewport: Viewport = {
