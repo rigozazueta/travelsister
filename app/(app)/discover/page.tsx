@@ -130,7 +130,7 @@ export default function DiscoverPage() {
         .from("friend_requests")
         .insert({ from_user_id: me.id, to_user_id: target.id });
       if (!error) {
-        showToast(`Request sent to ${firstName(target.full_name)} 💌`);
+        showToast(`Request sent to ${firstName(target.full_name)}`);
       } else if (error.code === "23505") {
         // A pending request already exists in the other direction — accept it.
         const { data: incoming } = await supabase
@@ -171,7 +171,7 @@ export default function DiscoverPage() {
   return (
     <div className="mx-auto max-w-lg">
       <div className="mb-6 text-center">
-        <h1 className="font-display text-3xl font-semibold text-ink">Discover</h1>
+        <h1 className="font-display text-[2rem] font-light tracking-[-0.01em] text-ink">Discover</h1>
         <p className="mt-1 text-sm text-ink-soft">
           {deck.length > 0
             ? `${deck.length} ${deck.length === 1 ? "woman" : "women"} who travel like you`
@@ -180,7 +180,7 @@ export default function DiscoverPage() {
       </div>
 
       {current ? (
-        <article key={current.id} className="animate-rise overflow-hidden rounded-[2rem] bg-white shadow-soft">
+        <article key={current.id} className="animate-rise overflow-hidden rounded-2xl bg-white shadow-soft">
           {/* Photo / header */}
           <div className="relative">
             {current.profile_photo_url ? (
@@ -198,22 +198,22 @@ export default function DiscoverPage() {
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/65 to-transparent px-6 pb-4 pt-16">
               <div className="flex items-end justify-between">
                 <div>
-                  <h2 className="font-display text-3xl font-semibold text-white">
+                  <h2 className="font-display text-[2rem] font-light tracking-[-0.01em] text-white">
                     {firstName(current.full_name)}
                     {current.age ? `, ${current.age}` : ""}
                   </h2>
                   <p className="text-sm font-medium text-white/85">{current.location}</p>
                 </div>
                 {current.verification_status === "verified" && (
-                  <span className="rounded-full bg-sage px-3 py-1 text-xs font-bold text-white">
+                  <span className="rounded-md bg-sage px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white">
                     ✓ Verified
                   </span>
                 )}
               </div>
             </div>
             {current.incomingRequestId && (
-              <span className="absolute left-4 top-4 animate-pop rounded-full bg-terracotta px-3.5 py-1.5 text-xs font-bold text-white shadow-soft">
-                She reached out to you 💌
+              <span className="absolute left-4 top-4 animate-pop rounded-lg bg-terracotta px-3.5 py-1.5 text-xs font-semibold text-white shadow-soft">
+                She reached out to you
               </span>
             )}
           </div>
@@ -221,7 +221,7 @@ export default function DiscoverPage() {
           <div className="space-y-5 p-6">
             <p className="leading-relaxed text-ink">{current.bio}</p>
 
-            <div className="flex flex-wrap gap-2 text-xs font-bold text-ink-soft">
+            <div className="flex flex-wrap gap-2 text-xs font-semibold text-ink-soft">
               {current.travel_style && (
                 <span className="rounded-full bg-sand px-3 py-1.5">{current.travel_style}</span>
               )}
@@ -237,7 +237,7 @@ export default function DiscoverPage() {
 
             {(current.interests ?? []).length > 0 && (
               <div>
-                <p className="mb-2 text-xs font-bold uppercase tracking-[0.14em] text-ink-soft">
+                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft">
                   Into
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -254,7 +254,7 @@ export default function DiscoverPage() {
 
             {(current.desired_destinations ?? []).length > 0 && (
               <div>
-                <p className="mb-2 text-xs font-bold uppercase tracking-[0.14em] text-ink-soft">
+                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft">
                   Dreaming of
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -271,7 +271,7 @@ export default function DiscoverPage() {
 
             {(current.prompts ?? []).map((prompt) => (
               <blockquote key={prompt.question} className="rounded-2xl bg-cream p-4">
-                <p className="text-xs font-bold uppercase tracking-[0.12em] text-sage-deep">
+                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-sage-deep">
                   {prompt.question}
                 </p>
                 <p className="mt-1 font-display text-lg italic text-ink">“{prompt.answer}”</p>
@@ -283,7 +283,7 @@ export default function DiscoverPage() {
             <button
               onClick={pass}
               disabled={busy}
-              className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-sand-deep bg-white text-xl text-ink-soft transition-all hover:scale-105 hover:border-ink-soft disabled:opacity-50"
+              className="flex h-14 w-14 items-center justify-center rounded-full border border-ink/15 bg-white text-lg text-ink-soft transition-all hover:border-ink/40 hover:text-ink disabled:opacity-50"
               aria-label="Pass"
             >
               ✕
@@ -291,22 +291,21 @@ export default function DiscoverPage() {
             <button
               onClick={connect}
               disabled={busy}
-              className="flex h-16 items-center gap-2 rounded-full bg-terracotta px-8 text-base font-bold text-white shadow-soft transition-all hover:scale-105 hover:bg-terracotta-deep disabled:opacity-50"
+              className="flex h-16 items-center gap-2 rounded-lg bg-terracotta px-8 text-base font-semibold text-white shadow-soft transition-all hover:scale-105 hover:bg-terracotta-deep disabled:opacity-50"
             >
-              ✿ Connect
+              Connect
             </button>
           </div>
           <button
             onClick={() => setReporting(current)}
             className="block w-full pb-4 text-center text-xs font-semibold text-ink-soft/70 hover:text-terracotta"
           >
-            ⚑ Report this profile
+            Report this profile
           </button>
         </article>
       ) : (
-        <div className="rounded-[2rem] bg-white p-10 text-center shadow-card">
-          <p className="text-4xl">🌅</p>
-          <h2 className="mt-4 font-display text-2xl font-semibold text-ink">
+        <div className="rounded-2xl bg-white p-10 text-center shadow-card">
+          <h2 className="mt-4 font-display text-2xl font-medium text-ink">
             You’ve met everyone (for now)
           </h2>
           <p className="mx-auto mt-2 max-w-sm text-ink-soft">
@@ -316,7 +315,7 @@ export default function DiscoverPage() {
           <div className="mt-6 flex flex-col items-center gap-3">
             <Link
               href="/trips"
-              className="rounded-full bg-terracotta px-7 py-3 text-sm font-bold text-white hover:bg-terracotta-deep"
+              className="rounded-lg bg-terracotta px-7 py-3 text-sm font-semibold text-white hover:bg-terracotta-deep"
             >
               Browse Nomara trips
             </Link>
@@ -334,7 +333,7 @@ export default function DiscoverPage() {
 
       {/* Toast */}
       {toast && (
-        <div className="fixed bottom-24 left-1/2 z-50 -translate-x-1/2 animate-pop rounded-full bg-ink px-6 py-3 text-sm font-bold text-cream shadow-soft md:bottom-10">
+        <div className="fixed bottom-24 left-1/2 z-50 -translate-x-1/2 animate-pop rounded-lg bg-ink px-6 py-3 text-sm font-semibold text-cream shadow-soft md:bottom-10">
           {toast}
         </div>
       )}
@@ -352,7 +351,7 @@ export default function DiscoverPage() {
               .insert({ user_id: me.id, target_user_id: reporting.id, action: "pass" });
             setDeck((d) => d.filter((c) => c.id !== reporting.id));
             setReporting(null);
-            showToast(blocked ? "Reported and blocked. Thank you 🤍" : "Report sent. Thank you 🤍");
+            showToast(blocked ? "Reported and blocked. Thank you" : "Report sent. Thank you");
           }}
         />
       )}
@@ -360,13 +359,13 @@ export default function DiscoverPage() {
       {/* Match modal */}
       {match && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/60 px-5 backdrop-blur-sm">
-          <div className="animate-pop w-full max-w-sm rounded-[2rem] bg-cream p-8 text-center shadow-soft">
+          <div className="animate-pop w-full max-w-sm rounded-2xl bg-cream p-8 text-center shadow-soft">
             <div className="flex items-center justify-center -space-x-4">
               <Avatar name={me.full_name} photoUrl={me.profile_photo_url} size="xl" />
               <Avatar name={match.full_name} photoUrl={match.profile_photo_url} size="xl" />
             </div>
-            <h2 className="mt-5 font-display text-3xl font-semibold text-terracotta">
-              It’s a match ✿
+            <h2 className="mt-5 font-display text-[2rem] font-light tracking-[-0.01em] text-terracotta">
+              It’s a match.
             </h2>
             <p className="mt-2 text-ink-soft">
               You and {firstName(match.full_name)} chose each other. Say hi — then find
@@ -375,13 +374,13 @@ export default function DiscoverPage() {
             <div className="mt-6 space-y-3">
               <button
                 onClick={messageMatch}
-                className="w-full rounded-full bg-terracotta py-3 text-sm font-bold text-white hover:bg-terracotta-deep"
+                className="w-full rounded-lg bg-terracotta py-3 text-sm font-semibold text-white hover:bg-terracotta-deep"
               >
                 Send her a message
               </button>
               <Link
                 href="/trips"
-                className="block w-full rounded-full border border-sand-deep py-3 text-sm font-bold text-ink hover:bg-sand"
+                className="block w-full rounded-lg border border-ink/15 py-3 text-sm font-semibold text-ink hover:bg-sand"
               >
                 Find a trip together
               </Link>

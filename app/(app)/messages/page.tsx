@@ -90,21 +90,20 @@ export default function MessagesPage() {
 
   return (
     <div className="mx-auto max-w-2xl">
-      <h1 className="font-display text-3xl font-semibold text-ink">Messages</h1>
+      <h1 className="font-display text-[2rem] font-light tracking-[-0.01em] text-ink">Messages</h1>
       <p className="mt-1 text-sm text-ink-soft">
         Conversations only happen between connected sisters.
       </p>
 
       {threads.length === 0 ? (
-        <div className="mt-8 rounded-3xl bg-white p-10 text-center shadow-card">
-          <p className="text-3xl">💬</p>
-          <p className="mt-3 font-display text-xl font-semibold text-ink">No messages yet</p>
+        <div className="mt-8 rounded-xl bg-white p-10 text-center shadow-card">
+          <p className="mt-3 font-display text-xl font-medium text-ink">No messages yet</p>
           <p className="mx-auto mt-1 max-w-sm text-sm text-ink-soft">
             Match with a sister in Discover and the conversation starts here.
           </p>
           <Link
             href="/discover"
-            className="mt-5 inline-block rounded-full bg-terracotta px-6 py-3 text-sm font-bold text-white hover:bg-terracotta-deep"
+            className="mt-5 inline-block rounded-lg bg-terracotta px-6 py-3 text-sm font-semibold text-white hover:bg-terracotta-deep"
           >
             Find your people
           </Link>
@@ -115,12 +114,12 @@ export default function MessagesPage() {
             <Link
               key={t.conversationId}
               href={`/messages/${t.conversationId}`}
-              className="flex items-center gap-4 rounded-3xl bg-white p-4 shadow-card transition-all hover:-translate-y-0.5 hover:shadow-soft"
+              className="flex items-center gap-4 rounded-xl bg-white p-4 shadow-card transition-all hover:-translate-y-0.5 hover:shadow-soft"
             >
               <Avatar name={t.other.full_name} photoUrl={t.other.profile_photo_url} size="lg" />
               <div className="min-w-0 flex-1">
                 <div className="flex items-baseline justify-between gap-2">
-                  <p className="truncate font-display text-lg font-semibold text-ink">
+                  <p className="truncate font-display text-lg font-medium text-ink">
                     {t.other.full_name}
                   </p>
                   <span className="shrink-0 text-xs text-ink-soft">
@@ -128,7 +127,7 @@ export default function MessagesPage() {
                   </span>
                 </div>
                 <p className="truncate text-sm text-ink-soft">
-                  {t.lastMessage?.content ?? "Say hi ✿"}
+                  {t.lastMessage?.content ?? "Say hi"}
                 </p>
               </div>
             </Link>

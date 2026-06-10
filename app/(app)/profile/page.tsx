@@ -106,10 +106,10 @@ export default function ProfilePage() {
   return (
     <div className="mx-auto max-w-2xl space-y-8">
       {/* Header card */}
-      <div className="flex flex-wrap items-center gap-5 rounded-[2rem] bg-white p-6 shadow-card">
+      <div className="flex flex-wrap items-center gap-5 rounded-2xl bg-white p-6 shadow-card">
         <Avatar name={profile.full_name} photoUrl={profile.profile_photo_url} size="xl" />
         <div className="min-w-0 flex-1">
-          <h1 className="font-display text-2xl font-semibold text-ink">
+          <h1 className="font-display text-2xl font-medium text-ink">
             {profile.full_name}
             {profile.age ? `, ${profile.age}` : ""}
           </h1>
@@ -117,8 +117,8 @@ export default function ProfilePage() {
           <span
             className={
               profile.verification_status === "verified"
-                ? "mt-2 inline-block rounded-full bg-sage px-3 py-1 text-xs font-bold text-white"
-                : "mt-2 inline-block rounded-full bg-sand px-3 py-1 text-xs font-bold text-ink-soft"
+                ? "mt-2 inline-block rounded-md bg-sage px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white"
+                : "mt-2 inline-block rounded-md bg-sand px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-ink-soft"
             }
           >
             {profile.verification_status === "verified"
@@ -130,14 +130,14 @@ export default function ProfilePage() {
           {profile.is_admin && (
             <Link
               href="/admin"
-              className="rounded-full bg-terracotta px-4 py-2 text-sm font-bold text-white hover:bg-terracotta-deep"
+              className="rounded-lg bg-terracotta px-4 py-2 text-sm font-semibold text-white hover:bg-terracotta-deep"
             >
               Admin
             </Link>
           )}
           <button
             onClick={signOut}
-            className="rounded-full border border-sand-deep px-4 py-2 text-sm font-bold text-ink-soft hover:bg-sand"
+            className="rounded-lg border border-ink/15 px-4 py-2 text-sm font-semibold text-ink-soft hover:bg-sand"
           >
             Sign out
           </button>
@@ -145,8 +145,8 @@ export default function ProfilePage() {
       </div>
 
       {/* Edit form */}
-      <section className="space-y-5 rounded-[2rem] bg-white p-6 shadow-card">
-        <h2 className="font-display text-xl font-semibold text-ink">Edit profile</h2>
+      <section className="space-y-5 rounded-2xl bg-white p-6 shadow-card">
+        <h2 className="font-display text-xl font-medium text-ink">Edit profile</h2>
 
         <div className="grid gap-4 sm:grid-cols-2">
           <label className="block">
@@ -155,7 +155,7 @@ export default function ProfilePage() {
               type="text"
               value={profile.full_name ?? ""}
               onChange={(e) => update("full_name", e.target.value)}
-              className="mt-1.5 w-full rounded-2xl border border-sand-deep px-4 py-3 outline-none focus:border-terracotta"
+              className="mt-1.5 w-full rounded-lg border border-ink/15 px-4 py-3 outline-none focus:border-terracotta"
             />
           </label>
           <label className="block">
@@ -164,7 +164,7 @@ export default function ProfilePage() {
               type="text"
               value={profile.location ?? ""}
               onChange={(e) => update("location", e.target.value)}
-              className="mt-1.5 w-full rounded-2xl border border-sand-deep px-4 py-3 outline-none focus:border-terracotta"
+              className="mt-1.5 w-full rounded-lg border border-ink/15 px-4 py-3 outline-none focus:border-terracotta"
             />
           </label>
         </div>
@@ -175,7 +175,7 @@ export default function ProfilePage() {
             rows={3}
             value={profile.bio ?? ""}
             onChange={(e) => update("bio", e.target.value)}
-            className="mt-1.5 w-full rounded-2xl border border-sand-deep px-4 py-3 outline-none focus:border-terracotta"
+            className="mt-1.5 w-full rounded-lg border border-ink/15 px-4 py-3 outline-none focus:border-terracotta"
           />
         </label>
 
@@ -240,14 +240,14 @@ export default function ProfilePage() {
             value={profile.instagram_handle ?? ""}
             onChange={(e) => update("instagram_handle", e.target.value)}
             placeholder="yourhandle"
-            className="mt-1.5 w-full rounded-2xl border border-sand-deep px-4 py-3 outline-none focus:border-terracotta"
+            className="mt-1.5 w-full rounded-lg border border-ink/15 px-4 py-3 outline-none focus:border-terracotta"
           />
         </label>
 
         <button
           onClick={save}
           disabled={saving}
-          className="w-full rounded-full bg-terracotta py-3.5 text-sm font-bold text-white hover:bg-terracotta-deep disabled:opacity-60"
+          className="w-full rounded-lg bg-terracotta py-3.5 text-sm font-semibold text-white hover:bg-terracotta-deep disabled:opacity-60"
         >
           {saving ? "Saving…" : savedAt ? "Saved ✓" : "Save changes"}
         </button>
@@ -255,8 +255,8 @@ export default function ProfilePage() {
 
       {/* Blocked members */}
       {blocked.length > 0 && (
-        <section className="space-y-3 rounded-[2rem] bg-white p-6 shadow-card">
-          <h2 className="font-display text-xl font-semibold text-ink">Blocked members</h2>
+        <section className="space-y-3 rounded-2xl bg-white p-6 shadow-card">
+          <h2 className="font-display text-xl font-medium text-ink">Blocked members</h2>
           <p className="text-sm text-ink-soft">
             Blocked members can’t see you in Discover or message you.
           </p>
@@ -269,13 +269,13 @@ export default function ProfilePage() {
                 <div className="flex items-center gap-3">
                   <Avatar name={b.full_name} size="sm" />
                   <div>
-                    <p className="text-sm font-bold text-ink">{b.full_name}</p>
+                    <p className="text-sm font-semibold text-ink">{b.full_name}</p>
                     <p className="text-xs text-ink-soft">{b.location}</p>
                   </div>
                 </div>
                 <button
                   onClick={() => unblock(b.id)}
-                  className="rounded-full border border-sand-deep px-4 py-2 text-xs font-bold text-ink-soft hover:bg-sand"
+                  className="rounded-lg border border-ink/15 px-4 py-2 text-xs font-semibold text-ink-soft hover:bg-sand"
                 >
                   Unblock
                 </button>
@@ -286,14 +286,14 @@ export default function ProfilePage() {
       )}
 
       {/* Safety footer */}
-      <section className="rounded-[2rem] bg-blush/40 p-6 text-center text-sm text-ink-soft">
+      <section className="rounded-2xl bg-blush/40 p-6 text-center text-sm text-ink-soft">
         <p>
           Questions or safety concerns? Email{" "}
-          <a href={`mailto:${SAFETY_EMAIL}`} className="font-bold text-terracotta hover:underline">
+          <a href={`mailto:${SAFETY_EMAIL}`} className="font-semibold text-terracotta hover:underline">
             {SAFETY_EMAIL}
           </a>{" "}
           · Read the{" "}
-          <Link href="/safety" className="font-bold text-terracotta hover:underline">
+          <Link href="/safety" className="font-semibold text-terracotta hover:underline">
             community guidelines
           </Link>
         </p>
@@ -303,7 +303,7 @@ export default function ProfilePage() {
             href="https://nomaratravel.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-bold text-terracotta hover:underline"
+            className="font-semibold text-terracotta hover:underline"
           >
             Nomara
           </a>

@@ -139,8 +139,8 @@ export default function TripDetailPage({ params }: { params: Promise<{ slug: str
   if (!trip) {
     return (
       <div className="py-24 text-center">
-        <p className="font-display text-2xl font-semibold text-ink">Trip not found</p>
-        <Link href="/trips" className="mt-3 inline-block font-bold text-terracotta hover:underline">
+        <p className="font-display text-2xl font-medium text-ink">Trip not found</p>
+        <Link href="/trips" className="mt-3 inline-block font-semibold text-terracotta hover:underline">
           ← Back to trips
         </Link>
       </div>
@@ -152,17 +152,17 @@ export default function TripDetailPage({ params }: { params: Promise<{ slug: str
 
   return (
     <div className="mx-auto max-w-4xl">
-      <Link href="/trips" className="text-sm font-bold text-ink-soft hover:text-ink">
+      <Link href="/trips" className="text-sm font-semibold text-ink-soft hover:text-ink">
         ← All trips
       </Link>
 
       {/* Hero */}
-      <div className="relative mt-4 h-72 overflow-hidden rounded-[2rem] shadow-soft md:h-96">
+      <div className="relative mt-4 h-72 overflow-hidden rounded-2xl shadow-soft md:h-96">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={trip.hero_image_url} alt={trip.name} className="h-full w-full object-cover" />
         <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-7 pb-6 pt-24">
-          <p className="text-sm font-bold uppercase tracking-[0.16em] text-blush">{trip.dates}</p>
-          <h1 className="mt-1 font-display text-3xl font-semibold leading-tight text-white md:text-4xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-blush">{trip.dates}</p>
+          <h1 className="mt-1 font-display text-[2rem] font-light tracking-[-0.01em] leading-tight text-white md:text-4xl">
             {trip.name}
           </h1>
           <p className="mt-1 font-medium text-white/85">{trip.location}</p>
@@ -172,26 +172,26 @@ export default function TripDetailPage({ params }: { params: Promise<{ slug: str
       <div className="mt-8 grid gap-8 md:grid-cols-[1.5fr_1fr]">
         <div className="space-y-8">
           <section>
-            <h2 className="font-display text-xl font-semibold text-ink">About this trip</h2>
+            <h2 className="font-display text-xl font-medium text-ink">About this trip</h2>
             <p className="mt-2 leading-relaxed text-ink-soft">{trip.description}</p>
           </section>
 
           {trip.whats_included && (
             <section>
-              <h2 className="font-display text-xl font-semibold text-ink">What’s included</h2>
+              <h2 className="font-display text-xl font-medium text-ink">What’s included</h2>
               <p className="mt-2 leading-relaxed text-ink-soft">{trip.whats_included}</p>
             </section>
           )}
 
           {/* Trip circle chat */}
-          <section className="rounded-3xl bg-white p-5 shadow-card">
-            <h2 className="font-display text-xl font-semibold text-ink">Trip circle chat</h2>
+          <section className="rounded-xl bg-white p-5 shadow-card">
+            <h2 className="font-display text-xl font-medium text-ink">Trip circle chat</h2>
             {joined ? (
               <>
                 <div className="mt-3 max-h-80 space-y-2.5 overflow-y-auto pr-1">
                   {chat.length === 0 && (
                     <p className="py-6 text-center text-sm text-ink-soft">
-                      It’s quiet in here — break the ice ✿
+                      It’s quiet in here — break the ice
                     </p>
                   )}
                   {chat.map((m) => {
@@ -211,7 +211,7 @@ export default function TripDetailPage({ params }: { params: Promise<{ slug: str
                           )}
                         >
                           {!mine && (
-                            <p className="text-[11px] font-bold text-sage-deep">
+                            <p className="text-[11px] font-semibold text-sage-deep">
                               {firstName(sender?.full_name)} · {timeAgo(m.created_at)}
                             </p>
                           )}
@@ -228,12 +228,12 @@ export default function TripDetailPage({ params }: { params: Promise<{ slug: str
                     value={draft}
                     onChange={(e) => setDraft(e.target.value)}
                     placeholder="Message the circle…"
-                    className="flex-1 rounded-full border border-sand-deep bg-white px-4 py-2.5 text-sm outline-none focus:border-terracotta"
+                    className="flex-1 rounded-lg border border-ink/15 bg-white px-4 py-2.5 text-sm outline-none focus:border-terracotta"
                   />
                   <button
                     type="submit"
                     disabled={!draft.trim()}
-                    className="rounded-full bg-terracotta px-5 py-2.5 text-sm font-bold text-white hover:bg-terracotta-deep disabled:opacity-40"
+                    className="rounded-lg bg-terracotta px-5 py-2.5 text-sm font-semibold text-white hover:bg-terracotta-deep disabled:opacity-40"
                   >
                     Send
                   </button>
@@ -249,8 +249,8 @@ export default function TripDetailPage({ params }: { params: Promise<{ slug: str
 
         {/* Sidebar */}
         <aside className="space-y-5">
-          <div className="rounded-3xl bg-white p-6 shadow-card">
-            <p className="font-display text-3xl font-semibold text-ink">{trip.price}</p>
+          <div className="rounded-xl bg-white p-6 shadow-card">
+            <p className="font-display text-[2rem] font-light tracking-[-0.01em] text-ink">{trip.price}</p>
             <p className="mt-1 text-sm text-ink-soft">
               {trip.spots_left} of {trip.spots_total} spots left
             </p>
@@ -258,14 +258,14 @@ export default function TripDetailPage({ params }: { params: Promise<{ slug: str
               href={bookUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 block rounded-full bg-terracotta py-3.5 text-center text-sm font-bold text-white shadow-soft transition-all hover:-translate-y-0.5 hover:bg-terracotta-deep"
+              className="mt-4 block rounded-lg bg-terracotta py-3.5 text-center text-sm font-semibold text-white shadow-soft transition-all hover:-translate-y-0.5 hover:bg-terracotta-deep"
             >
               Book on nomaratravel.com ↗
             </a>
             <button
               onClick={toggleJoin}
               className={cn(
-                "mt-3 w-full rounded-full border py-3 text-sm font-bold transition-colors",
+                "mt-3 w-full rounded-full border py-3 text-sm font-semibold transition-colors",
                 joined
                   ? "border-sage bg-sage/15 text-sage-deep hover:bg-sage/25"
                   : "border-ink/20 text-ink hover:bg-sand"
@@ -279,8 +279,8 @@ export default function TripDetailPage({ params }: { params: Promise<{ slug: str
             </p>
           </div>
 
-          <div className="rounded-3xl bg-white p-6 shadow-card">
-            <h3 className="font-display text-lg font-semibold text-ink">
+          <div className="rounded-xl bg-white p-6 shadow-card">
+            <h3 className="font-display text-lg font-medium text-ink">
               {members.length > 0
                 ? `${members.length} in the circle`
                 : "No one in the circle yet"}
@@ -291,7 +291,7 @@ export default function TripDetailPage({ params }: { params: Promise<{ slug: str
                   <li key={m.id} className="flex items-center gap-3">
                     <Avatar name={m.full_name} photoUrl={m.profile_photo_url} />
                     <div className="min-w-0">
-                      <p className="truncate text-sm font-bold text-ink">
+                      <p className="truncate text-sm font-semibold text-ink">
                         {m.full_name}
                         {m.id === meId && " (you)"}
                       </p>

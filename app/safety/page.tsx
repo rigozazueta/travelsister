@@ -38,17 +38,17 @@ export default function SafetyPage() {
         <Logo />
         <Link
           href="/sign-up"
-          className="rounded-full bg-ink px-5 py-2.5 text-sm font-bold text-cream transition-colors hover:bg-terracotta"
+          className="rounded-lg bg-ink px-5 py-2.5 text-sm font-semibold text-cream transition-colors hover:bg-terracotta"
         >
           Join free
         </Link>
       </header>
 
       <main className="mx-auto max-w-3xl px-5 pb-24 pt-10">
-        <p className="text-xs font-bold uppercase tracking-[0.2em] text-sage-deep">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sage-deep">
           Safety & community guidelines
         </p>
-        <h1 className="mt-3 font-display text-4xl font-semibold leading-tight text-ink md:text-5xl">
+        <h1 className="mt-3 font-display text-4xl font-light leading-tight text-ink md:text-5xl">
           The promises we make
           <span className="italic text-terracotta"> to each other.</span>
         </h1>
@@ -60,8 +60,8 @@ export default function SafetyPage() {
 
         <div className="mt-10 space-y-5">
           {GUIDELINES.map((g, i) => (
-            <section key={g.title} className="rounded-3xl bg-white/80 p-6 shadow-card">
-              <h2 className="font-display text-xl font-semibold text-ink">
+            <section key={g.title} className="rounded-xl bg-white/80 p-6 shadow-card">
+              <h2 className="font-display text-xl font-medium text-ink">
                 {i + 1}. {g.title}
               </h2>
               <p className="mt-2 leading-relaxed text-ink-soft">{g.body}</p>
@@ -69,8 +69,8 @@ export default function SafetyPage() {
           ))}
         </div>
 
-        <section className="mt-10 rounded-3xl bg-blush/50 p-6">
-          <h2 className="font-display text-xl font-semibold text-ink">
+        <section className="mt-10 rounded-xl bg-blush/50 p-6">
+          <h2 className="font-display text-xl font-medium text-ink">
             See something? Tell us.
           </h2>
           <p className="mt-2 leading-relaxed text-ink-soft">

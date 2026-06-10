@@ -5,12 +5,12 @@ export function cn(...classes: Array<string | false | null | undefined>) {
 }
 
 const AVATAR_PALETTES = [
-  "from-[#c2664a] to-[#e9c8b6]",
-  "from-[#7e8f7c] to-[#c9d6c4]",
-  "from-[#c9a35c] to-[#ecdcb8]",
-  "from-[#9c6b8f] to-[#dcc3d5]",
-  "from-[#5f7060] to-[#a9bca6]",
-  "from-[#b3654d] to-[#e5c1a8]",
+  "from-[#a35c3f] to-[#d6a98f]",
+  "from-[#6f7a67] to-[#aab5a0]",
+  "from-[#b3995f] to-[#d9c9a3]",
+  "from-[#7d6371] to-[#b3a0ac]",
+  "from-[#565f4e] to-[#909a85]",
+  "from-[#8a5a44] to-[#c49b85]",
 ];
 
 export function avatarPalette(seed: string) {

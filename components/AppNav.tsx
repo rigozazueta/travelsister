@@ -3,16 +3,24 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import {
+  Compass,
+  Flower2,
+  MessageCircle,
+  Earth,
+  CircleUserRound,
+  ShieldCheck,
+} from "lucide-react";
 import { Logo } from "@/components/Logo";
 import { supabaseBrowser } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 
 const TABS = [
-  { href: "/discover", label: "Discover", icon: "✨" },
-  { href: "/sisters", label: "Sisters", icon: "✿" },
-  { href: "/messages", label: "Messages", icon: "💬" },
-  { href: "/trips", label: "Trips", icon: "🌍" },
-  { href: "/profile", label: "Profile", icon: "☺" },
+  { href: "/discover", label: "Discover", Icon: Compass },
+  { href: "/sisters", label: "Sisters", Icon: Flower2 },
+  { href: "/messages", label: "Messages", Icon: MessageCircle },
+  { href: "/trips", label: "Trips", Icon: Earth },
+  { href: "/profile", label: "Profile", Icon: CircleUserRound },
 ];
 
 export function AppNav() {
@@ -54,7 +62,7 @@ export function AppNav() {
   function Badge() {
     if (pendingRequests === 0) return null;
     return (
-      <span className="absolute -right-1.5 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-terracotta px-1 text-[10px] font-bold text-white">
+      <span className="absolute -right-2 -top-1.5 flex h-[15px] min-w-[15px] items-center justify-center rounded-full bg-terracotta px-1 text-[9px] font-bold text-white">
         {pendingRequests}
       </span>
     );
@@ -63,10 +71,10 @@ export function AppNav() {
   return (
     <>
       {/* Top bar (all screens) */}
-      <header className="sticky top-0 z-40 border-b border-sand-deep bg-cream/90 backdrop-blur">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-5 py-3.5">
+      <header className="sticky top-0 z-40 border-b border-ink/8 bg-cream/90 backdrop-blur-md">
+        <div className="mx-auto flex max-w-5xl items-center justify-between px-5 py-4">
           <Logo href="/discover" />
-          <nav className="hidden items-center gap-1 md:flex">
+          <nav className="hidden items-center gap-7 md:flex">
             {TABS.map((tab) => {
               const active = pathname.startsWith(tab.href);
               return (
@@ -74,14 +82,18 @@ export function AppNav() {
                   key={tab.href}
                   href={tab.href}
                   className={cn(
-                    "relative rounded-full px-4 py-2 text-sm font-bold transition-colors",
-                    active
-                      ? "bg-ink text-cream"
-                      : "text-ink-soft hover:bg-sand hover:text-ink"
+                    "relative pb-0.5 text-[12px] font-semibold uppercase tracking-[0.18em] transition-colors",
+                    active ? "text-ink" : "text-ink-soft hover:text-ink"
                   )}
                 >
                   {tab.label}
                   {tab.href === "/sisters" && <Badge />}
+                  <span
+                    className={cn(
+                      "absolute -bottom-[5px] left-0 h-px w-full bg-terracotta transition-opacity",
+                      active ? "opacity-100" : "opacity-0"
+                    )}
+                  />
                 </Link>
               );
             })}
@@ -89,12 +101,13 @@ export function AppNav() {
               <Link
                 href="/admin"
                 className={cn(
-                  "rounded-full px-4 py-2 text-sm font-bold transition-colors",
+                  "flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.18em] transition-colors",
                   pathname.startsWith("/admin")
-                    ? "bg-terracotta text-white"
-                    : "text-terracotta hover:bg-blush/50"
+                    ? "text-terracotta"
+                    : "text-terracotta/70 hover:text-terracotta"
                 )}
               >
+                <ShieldCheck className="h-3.5 w-3.5" strokeWidth={1.75} />
                 Admin
               </Link>
             )}
@@ -103,8 +116,8 @@ export function AppNav() {
       </header>
 
       {/* Bottom tab bar (mobile) */}
-      <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-sand-deep bg-cream/95 backdrop-blur md:hidden">
-        <div className="mx-auto flex max-w-md items-stretch justify-around">
+      <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-ink/8 bg-cream/95 backdrop-blur-md md:hidden">
+        <div className="mx-auto flex max-w-md items-stretch justify-around pb-[env(safe-area-inset-bottom)]">
           {TABS.map((tab) => {
             const active = pathname.startsWith(tab.href);
             return (
@@ -112,15 +125,24 @@ export function AppNav() {
                 key={tab.href}
                 href={tab.href}
                 className={cn(
-                  "flex flex-1 flex-col items-center gap-0.5 py-2.5 text-[11px] font-bold",
-                  active ? "text-terracotta" : "text-ink-soft"
+                  "flex flex-1 flex-col items-center gap-1 py-2.5 text-[10px] font-semibold tracking-[0.04em]",
+                  active ? "text-ink" : "text-ink-soft/80"
                 )}
               >
-                <span className="relative text-lg leading-none">
-                  {tab.icon}
+                <span className="relative">
+                  <tab.Icon
+                    className="h-[21px] w-[21px]"
+                    strokeWidth={active ? 2 : 1.5}
+                  />
                   {tab.href === "/sisters" && <Badge />}
                 </span>
                 {tab.label}
+                <span
+                  className={cn(
+                    "h-1 w-1 rounded-full bg-terracotta",
+                    active ? "opacity-100" : "opacity-0"
+                  )}
+                />
               </Link>
             );
           })}

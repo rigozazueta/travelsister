@@ -19,13 +19,14 @@ export function Chip({
       type={onClick ? "button" : undefined}
       onClick={onClick}
       className={cn(
-        "inline-flex items-center rounded-full border px-3 py-1.5 text-sm font-medium transition-all",
-        onClick && "cursor-pointer hover:-translate-y-0.5",
+        "inline-flex items-center rounded-md px-3 py-1.5 text-[12px] font-medium tracking-[0.02em] transition-colors",
+        onClick && "cursor-pointer",
         selected
-          ? "border-terracotta bg-terracotta text-white shadow-card"
+          ? "border border-ink bg-ink text-cream"
           : highlight
-            ? "border-sage bg-sage/15 text-sage-deep"
-            : "border-sand-deep bg-white/70 text-ink-soft"
+            ? "border border-sage/50 bg-sage/10 text-sage-deep"
+            : "border border-ink/10 bg-white/60 text-ink-soft",
+        onClick && !selected && "hover:border-ink/30 hover:text-ink"
       )}
     >
       {label}

@@ -44,7 +44,7 @@ export default function SignInPage() {
 
   return (
     <div className="animate-rise">
-      <h1 className="font-display text-3xl font-semibold text-ink">Welcome back ✿</h1>
+      <h1 className="font-display text-[2rem] font-light tracking-[-0.01em] text-ink">Welcome back.</h1>
       <p className="mt-2 text-ink-soft">Your sisters have been busy.</p>
 
       <form onSubmit={submit} className="mt-8 space-y-4">
@@ -56,7 +56,7 @@ export default function SignInPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@email.com"
-            className="mt-1.5 w-full rounded-2xl border border-sand-deep bg-white px-4 py-3 outline-none placeholder:text-ink-soft/50 focus:border-terracotta"
+            className="mt-1.5 w-full rounded-lg border border-ink/15 bg-white px-4 py-3 outline-none placeholder:text-ink-soft/50 focus:border-terracotta"
           />
         </label>
         <label className="block">
@@ -67,7 +67,7 @@ export default function SignInPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
-            className="mt-1.5 w-full rounded-2xl border border-sand-deep bg-white px-4 py-3 outline-none placeholder:text-ink-soft/50 focus:border-terracotta"
+            className="mt-1.5 w-full rounded-lg border border-ink/15 bg-white px-4 py-3 outline-none placeholder:text-ink-soft/50 focus:border-terracotta"
           />
         </label>
 
@@ -80,7 +80,7 @@ export default function SignInPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-full bg-terracotta py-3.5 text-sm font-bold text-white transition-colors hover:bg-terracotta-deep disabled:opacity-60"
+          className="w-full rounded-lg bg-terracotta py-3.5 text-sm font-semibold text-white transition-colors hover:bg-terracotta-deep disabled:opacity-60"
         >
           {loading ? "Signing in…" : "Sign in"}
         </button>
@@ -88,7 +88,7 @@ export default function SignInPage() {
 
       <p className="mt-6 text-center text-sm text-ink-soft">
         New here?{" "}
-        <Link href="/sign-up" className="font-bold text-terracotta hover:underline">
+        <Link href="/sign-up" className="font-semibold text-terracotta hover:underline">
           Join free
         </Link>
       </p>

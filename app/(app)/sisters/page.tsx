@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { MessageCircle } from "lucide-react";
 import { Avatar } from "@/components/Avatar";
 import { Chip } from "@/components/Chip";
 import { ProfileModal } from "@/components/ProfileModal";
@@ -112,7 +113,7 @@ export default function SistersPage() {
   return (
     <div className="mx-auto max-w-3xl space-y-10">
       <div>
-        <h1 className="font-display text-3xl font-semibold text-ink">Your sisters</h1>
+        <h1 className="font-display text-[2rem] font-light tracking-[-0.01em] text-ink">Your sisters</h1>
         <p className="mt-1 text-sm text-ink-soft">
           {sisters.length} connection{sisters.length === 1 ? "" : "s"}
           {sentCount > 0 && ` · ${sentCount} request${sentCount === 1 ? "" : "s"} sent`}
@@ -121,14 +122,14 @@ export default function SistersPage() {
 
       {incoming.length > 0 && (
         <section>
-          <h2 className="mb-3 text-xs font-bold uppercase tracking-[0.16em] text-terracotta">
+          <h2 className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-terracotta">
             Women who want to connect with you
           </h2>
           <div className="space-y-3">
             {incoming.map((req) => (
               <div
                 key={req.id}
-                className="animate-rise flex flex-wrap items-center gap-4 rounded-3xl bg-white p-4 shadow-card"
+                className="animate-rise flex flex-wrap items-center gap-4 rounded-xl bg-white p-4 shadow-card"
               >
                 <button onClick={() => setViewing(req.profile)} aria-label="View profile">
                   <Avatar
@@ -138,7 +139,7 @@ export default function SistersPage() {
                   />
                 </button>
                 <div className="min-w-0 flex-1 cursor-pointer" onClick={() => setViewing(req.profile)}>
-                  <p className="font-display text-lg font-semibold text-ink">
+                  <p className="font-display text-lg font-medium text-ink">
                     {req.profile.full_name}
                     {req.profile.age ? `, ${req.profile.age}` : ""}
                   </p>
@@ -154,13 +155,13 @@ export default function SistersPage() {
                 <div className="flex gap-2">
                   <button
                     onClick={() => respond(req.id, "accepted")}
-                    className="rounded-full bg-terracotta px-5 py-2.5 text-sm font-bold text-white hover:bg-terracotta-deep"
+                    className="rounded-lg bg-terracotta px-5 py-2.5 text-sm font-semibold text-white hover:bg-terracotta-deep"
                   >
-                    Accept ✿
+                    Accept
                   </button>
                   <button
                     onClick={() => respond(req.id, "declined")}
-                    className="rounded-full border border-sand-deep px-4 py-2.5 text-sm font-bold text-ink-soft hover:bg-sand"
+                    className="rounded-lg border border-ink/15 px-4 py-2.5 text-sm font-semibold text-ink-soft hover:bg-sand"
                   >
                     Pass
                   </button>
@@ -172,13 +173,12 @@ export default function SistersPage() {
       )}
 
       <section>
-        <h2 className="mb-3 text-xs font-bold uppercase tracking-[0.16em] text-ink-soft">
+        <h2 className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-ink-soft">
           Your circle
         </h2>
         {sisters.length === 0 ? (
-          <div className="rounded-3xl bg-white p-10 text-center shadow-card">
-            <p className="text-3xl">✿</p>
-            <p className="mt-3 font-display text-xl font-semibold text-ink">
+          <div className="rounded-xl bg-white p-10 text-center shadow-card">
+            <p className="mt-3 font-display text-xl font-medium text-ink">
               No connections yet
             </p>
             <p className="mx-auto mt-1 max-w-sm text-sm text-ink-soft">
@@ -186,7 +186,7 @@ export default function SistersPage() {
             </p>
             <Link
               href="/discover"
-              className="mt-5 inline-block rounded-full bg-terracotta px-6 py-3 text-sm font-bold text-white hover:bg-terracotta-deep"
+              className="mt-5 inline-block rounded-lg bg-terracotta px-6 py-3 text-sm font-semibold text-white hover:bg-terracotta-deep"
             >
               Start discovering
             </Link>
@@ -196,13 +196,13 @@ export default function SistersPage() {
             {sisters.map(({ profile, since }) => (
               <div
                 key={profile.id}
-                className="animate-rise flex items-center gap-4 rounded-3xl bg-white p-4 shadow-card"
+                className="animate-rise flex items-center gap-4 rounded-xl bg-white p-4 shadow-card"
               >
                 <button onClick={() => setViewing(profile)} aria-label="View profile">
                   <Avatar name={profile.full_name} photoUrl={profile.profile_photo_url} size="lg" />
                 </button>
                 <div className="min-w-0 flex-1 cursor-pointer" onClick={() => setViewing(profile)}>
-                  <p className="truncate font-display text-lg font-semibold text-ink">
+                  <p className="truncate font-display text-lg font-medium text-ink">
                     {profile.full_name}
                   </p>
                   <p className="truncate text-sm text-ink-soft">{profile.location}</p>
@@ -210,9 +210,10 @@ export default function SistersPage() {
                 </div>
                 <button
                   onClick={() => message(profile.id)}
-                  className="rounded-full bg-sage px-4 py-2.5 text-sm font-bold text-white hover:bg-sage-deep"
+                  aria-label="Message"
+                  className="flex h-10 w-10 items-center justify-center rounded-lg border border-ink/15 text-ink-soft transition-colors hover:border-ink/40 hover:text-ink"
                 >
-                  💬
+                  <MessageCircle className="h-[18px] w-[18px]" strokeWidth={1.5} />
                 </button>
               </div>
             ))}
@@ -249,8 +250,8 @@ export default function SistersPage() {
       )}
 
       {meId && sisters.length > 0 && (
-        <section className="rounded-3xl bg-blush/40 p-6 text-center">
-          <p className="font-display text-xl font-semibold text-ink">
+        <section className="rounded-xl bg-blush/40 p-6 text-center">
+          <p className="font-display text-xl font-medium text-ink">
             Ready to make it real?
           </p>
           <p className="mx-auto mt-1 max-w-md text-sm text-ink-soft">
@@ -259,7 +260,7 @@ export default function SistersPage() {
           </p>
           <Link
             href="/trips"
-            className="mt-4 inline-block rounded-full bg-terracotta px-6 py-3 text-sm font-bold text-white hover:bg-terracotta-deep"
+            className="mt-4 inline-block rounded-lg bg-terracotta px-6 py-3 text-sm font-semibold text-white hover:bg-terracotta-deep"
           >
             Browse trips together
           </Link>

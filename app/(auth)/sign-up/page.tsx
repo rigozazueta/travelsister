@@ -46,9 +46,8 @@ export default function SignUpPage() {
 
   if (needsConfirmation) {
     return (
-      <div className="animate-pop rounded-3xl bg-white p-8 text-center shadow-card">
-        <p className="text-4xl">💌</p>
-        <h1 className="mt-4 font-display text-2xl font-semibold text-ink">
+      <div className="animate-pop rounded-xl bg-white p-8 text-center shadow-card">
+        <h1 className="mt-4 font-display text-2xl font-medium text-ink">
           Check your inbox
         </h1>
         <p className="mt-2 text-ink-soft">
@@ -57,7 +56,7 @@ export default function SignUpPage() {
         </p>
         <Link
           href="/sign-in"
-          className="mt-6 inline-block rounded-full bg-terracotta px-6 py-3 text-sm font-bold text-white hover:bg-terracotta-deep"
+          className="mt-6 inline-block rounded-lg bg-terracotta px-6 py-3 text-sm font-semibold text-white hover:bg-terracotta-deep"
         >
           Go to sign in
         </Link>
@@ -67,7 +66,7 @@ export default function SignUpPage() {
 
   return (
     <div className="animate-rise">
-      <h1 className="font-display text-3xl font-semibold text-ink">
+      <h1 className="font-display text-[2rem] font-light tracking-[-0.01em] text-ink">
         Join the sisterhood
       </h1>
       <p className="mt-2 text-ink-soft">
@@ -83,7 +82,7 @@ export default function SignUpPage() {
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
             placeholder="Maya Castillo"
-            className="mt-1.5 w-full rounded-2xl border border-sand-deep bg-white px-4 py-3 outline-none placeholder:text-ink-soft/50 focus:border-terracotta"
+            className="mt-1.5 w-full rounded-lg border border-ink/15 bg-white px-4 py-3 outline-none placeholder:text-ink-soft/50 focus:border-terracotta"
           />
         </label>
         <label className="block">
@@ -94,7 +93,7 @@ export default function SignUpPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@email.com"
-            className="mt-1.5 w-full rounded-2xl border border-sand-deep bg-white px-4 py-3 outline-none placeholder:text-ink-soft/50 focus:border-terracotta"
+            className="mt-1.5 w-full rounded-lg border border-ink/15 bg-white px-4 py-3 outline-none placeholder:text-ink-soft/50 focus:border-terracotta"
           />
         </label>
         <label className="block">
@@ -106,7 +105,7 @@ export default function SignUpPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="At least 8 characters"
-            className="mt-1.5 w-full rounded-2xl border border-sand-deep bg-white px-4 py-3 outline-none placeholder:text-ink-soft/50 focus:border-terracotta"
+            className="mt-1.5 w-full rounded-lg border border-ink/15 bg-white px-4 py-3 outline-none placeholder:text-ink-soft/50 focus:border-terracotta"
           />
         </label>
 
@@ -149,7 +148,7 @@ export default function SignUpPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-full bg-terracotta py-3.5 text-sm font-bold text-white transition-colors hover:bg-terracotta-deep disabled:opacity-60"
+          className="w-full rounded-lg bg-terracotta py-3.5 text-sm font-semibold text-white transition-colors hover:bg-terracotta-deep disabled:opacity-60"
         >
           {loading ? "Creating your account…" : "Create my account"}
         </button>
@@ -157,7 +156,7 @@ export default function SignUpPage() {
 
       <p className="mt-6 text-center text-sm text-ink-soft">
         Already a member?{" "}
-        <Link href="/sign-in" className="font-bold text-terracotta hover:underline">
+        <Link href="/sign-in" className="font-semibold text-terracotta hover:underline">
           Sign in
         </Link>
       </p>

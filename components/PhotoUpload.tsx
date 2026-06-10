@@ -64,7 +64,7 @@ export function PhotoUpload({
             type="button"
             onClick={() => inputRef.current?.click()}
             disabled={uploading}
-            className="rounded-full bg-ink px-5 py-2.5 text-sm font-bold text-cream transition-colors hover:bg-terracotta disabled:opacity-60"
+            className="rounded-lg bg-ink px-5 py-2.5 text-sm font-semibold text-cream transition-colors hover:bg-terracotta disabled:opacity-60"
           >
             {uploading ? "Uploading…" : value ? "Change photo" : "Upload a photo"}
           </button>
@@ -84,7 +84,7 @@ export function PhotoUpload({
             value={value}
             onChange={(e) => onChange(e.target.value)}
             placeholder="https://…"
-            className="w-full rounded-2xl border border-sand-deep bg-white px-4 py-2.5 text-sm outline-none focus:border-terracotta"
+            className="w-full rounded-lg border border-ink/15 bg-white px-4 py-2.5 text-sm outline-none focus:border-terracotta"
           />
         ) : (
           <button

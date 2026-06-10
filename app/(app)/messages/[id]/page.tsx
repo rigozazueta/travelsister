@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { use, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Flag } from "lucide-react";
 import { Avatar } from "@/components/Avatar";
 import { ReportModal } from "@/components/ReportModal";
 import { SAFETY_EMAIL } from "@/lib/constants";
@@ -125,7 +126,7 @@ export default function ChatPage({ params }: { params: Promise<{ id: string }> }
   return (
     <div className="mx-auto flex h-[calc(100vh-180px)] max-w-2xl flex-col md:h-[calc(100vh-140px)]">
       {/* Header */}
-      <div className="flex items-center gap-3 rounded-3xl bg-white p-4 shadow-card">
+      <div className="flex items-center gap-3 rounded-xl bg-white p-4 shadow-card">
         <Link href="/messages" className="px-1 text-xl text-ink-soft hover:text-ink">
           ←
         </Link>
@@ -133,24 +134,24 @@ export default function ChatPage({ params }: { params: Promise<{ id: string }> }
           <>
             <Avatar name={other.full_name} photoUrl={other.profile_photo_url} />
             <div className="min-w-0 flex-1">
-              <p className="truncate font-display text-lg font-semibold text-ink">
+              <p className="truncate font-display text-lg font-medium text-ink">
                 {other.full_name}
               </p>
               <p className="truncate text-xs text-ink-soft">{other.location}</p>
             </div>
             <Link
               href="/trips"
-              className="hidden rounded-full bg-sand px-4 py-2 text-xs font-bold text-ink hover:bg-sand-deep sm:block"
+              className="hidden rounded-lg bg-sand px-4 py-2 text-xs font-semibold text-ink hover:bg-sand-deep sm:block"
             >
-              Find a trip together 🌍
+              Find a trip together
             </Link>
             <button
               onClick={() => setReporting(true)}
-              className="rounded-full px-2 py-1 text-lg text-ink-soft hover:text-terracotta"
+              className="p-2 text-ink-soft transition-colors hover:text-terracotta"
               title="Report or block"
               aria-label="Report or block"
             >
-              ⚑
+              <Flag className="h-4 w-4" strokeWidth={1.5} />
             </button>
           </>
         )}
@@ -189,7 +190,7 @@ export default function ChatPage({ params }: { params: Promise<{ id: string }> }
             <div key={m.id} className={cn("flex", mine ? "justify-end" : "justify-start")}>
               <div
                 className={cn(
-                  "max-w-[78%] rounded-3xl px-4 py-2.5 text-sm leading-relaxed shadow-card",
+                  "max-w-[78%] rounded-xl px-4 py-2.5 text-sm leading-relaxed shadow-card",
                   mine
                     ? "rounded-br-md bg-terracotta text-white"
                     : "rounded-bl-md bg-white text-ink"
@@ -210,12 +211,12 @@ export default function ChatPage({ params }: { params: Promise<{ id: string }> }
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
           placeholder={other ? `Message ${firstName(other.full_name)}…` : "Message…"}
-          className="flex-1 rounded-full border border-sand-deep bg-white px-5 py-3 text-sm outline-none placeholder:text-ink-soft/50 focus:border-terracotta"
+          className="flex-1 rounded-lg border border-ink/15 bg-white px-5 py-3 text-sm outline-none placeholder:text-ink-soft/50 focus:border-terracotta"
         />
         <button
           type="submit"
           disabled={!draft.trim() || sending}
-          className="rounded-full bg-terracotta px-6 py-3 text-sm font-bold text-white hover:bg-terracotta-deep disabled:opacity-40"
+          className="rounded-lg bg-terracotta px-6 py-3 text-sm font-semibold text-white hover:bg-terracotta-deep disabled:opacity-40"
         >
           Send
         </button>

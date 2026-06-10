@@ -101,7 +101,7 @@ export default function AdminPage() {
   if (!authorized) {
     return (
       <div className="py-24 text-center">
-        <p className="font-display text-2xl font-semibold text-ink">Admins only</p>
+        <p className="font-display text-2xl font-medium text-ink">Admins only</p>
         <p className="mt-2 text-sm text-ink-soft">
           This area is for the Nomara team. If that’s you, ask a teammate to flag your
           account as admin.
@@ -120,7 +120,7 @@ export default function AdminPage() {
   return (
     <div className="mx-auto max-w-4xl space-y-6">
       <div>
-        <h1 className="font-display text-3xl font-semibold text-ink">Nomara admin</h1>
+        <h1 className="font-display text-[2rem] font-light tracking-[-0.01em] text-ink">Nomara admin</h1>
         <p className="mt-1 text-sm text-ink-soft">
           Community health, funnel leads, and safety reports.
         </p>
@@ -132,13 +132,13 @@ export default function AdminPage() {
             key={t}
             onClick={() => setTab(t)}
             className={cn(
-              "rounded-full px-5 py-2.5 text-sm font-bold capitalize transition-colors",
+              "rounded-lg px-5 py-2.5 text-sm font-semibold capitalize transition-colors",
               tab === t ? "bg-ink text-cream" : "bg-white text-ink-soft shadow-card hover:text-ink"
             )}
           >
             {t}
             {t === "reports" && openReports.length > 0 && (
-              <span className="ml-2 rounded-full bg-terracotta px-2 py-0.5 text-xs text-white">
+              <span className="ml-2 rounded-lg bg-terracotta px-2 py-0.5 text-xs text-white">
                 {openReports.length}
               </span>
             )}
@@ -149,9 +149,9 @@ export default function AdminPage() {
       {tab === "overview" && (
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
           {stats.map((s) => (
-            <div key={s.label} className="rounded-3xl bg-white p-5 text-center shadow-card">
-              <p className="font-display text-3xl font-semibold text-terracotta">{s.value}</p>
-              <p className="mt-1 text-xs font-bold uppercase tracking-wide text-ink-soft">
+            <div key={s.label} className="rounded-xl bg-white p-5 text-center shadow-card">
+              <p className="font-display text-[2rem] font-light tracking-[-0.01em] text-terracotta">{s.value}</p>
+              <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-ink-soft">
                 {s.label}
               </p>
             </div>
@@ -164,14 +164,14 @@ export default function AdminPage() {
           {members.map((m) => (
             <div
               key={m.id}
-              className="flex flex-wrap items-center gap-3 rounded-3xl bg-white p-4 shadow-card"
+              className="flex flex-wrap items-center gap-3 rounded-xl bg-white p-4 shadow-card"
             >
               <Avatar name={m.full_name} photoUrl={m.profile_photo_url} />
               <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-bold text-ink">
+                <p className="truncate text-sm font-semibold text-ink">
                   {m.full_name || "(onboarding not finished)"}
                   {m.is_admin && (
-                    <span className="ml-2 rounded-full bg-gold/30 px-2 py-0.5 text-[10px] font-bold uppercase">
+                    <span className="ml-2 rounded-full bg-gold/30 px-2 py-0.5 text-[10px] font-semibold uppercase">
                       admin
                     </span>
                   )}
@@ -188,7 +188,7 @@ export default function AdminPage() {
                   )
                 }
                 className={cn(
-                  "rounded-full px-4 py-2 text-xs font-bold transition-colors",
+                  "rounded-lg px-4 py-2 text-xs font-semibold transition-colors",
                   m.verification_status === "verified"
                     ? "bg-sage text-white hover:bg-sage-deep"
                     : "border border-sand-deep text-ink-soft hover:bg-sand"
@@ -206,12 +206,12 @@ export default function AdminPage() {
           <button
             onClick={copyLeadEmails}
             disabled={leads.length === 0}
-            className="rounded-full bg-ink px-5 py-2.5 text-sm font-bold text-cream hover:bg-terracotta disabled:opacity-50"
+            className="rounded-lg bg-ink px-5 py-2.5 text-sm font-semibold text-cream hover:bg-terracotta disabled:opacity-50"
           >
             {copied ? "Copied ✓" : `Copy ${leads.length} emails`}
           </button>
           {leads.length === 0 ? (
-            <p className="rounded-3xl bg-white p-8 text-center text-sm text-ink-soft shadow-card">
+            <p className="rounded-xl bg-white p-8 text-center text-sm text-ink-soft shadow-card">
               No leads yet — share the landing page to start collecting.
             </p>
           ) : (
@@ -222,7 +222,7 @@ export default function AdminPage() {
                   className="flex flex-wrap items-center justify-between gap-2 rounded-2xl bg-white px-5 py-3 shadow-card"
                 >
                   <div>
-                    <p className="text-sm font-bold text-ink">{l.email}</p>
+                    <p className="text-sm font-semibold text-ink">{l.email}</p>
                     <p className="text-xs text-ink-soft">
                       {l.name || "—"} · via {l.source}
                     </p>
@@ -238,7 +238,7 @@ export default function AdminPage() {
       {tab === "reports" && (
         <div className="space-y-2">
           {reports.length === 0 && (
-            <p className="rounded-3xl bg-white p-8 text-center text-sm text-ink-soft shadow-card">
+            <p className="rounded-xl bg-white p-8 text-center text-sm text-ink-soft shadow-card">
               No reports — a quiet queue is a healthy community.
             </p>
           )}
@@ -249,24 +249,24 @@ export default function AdminPage() {
               <div
                 key={r.id}
                 className={cn(
-                  "rounded-3xl bg-white p-5 shadow-card",
+                  "rounded-xl bg-white p-5 shadow-card",
                   r.status === "resolved" && "opacity-60"
                 )}
               >
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <p className="text-sm font-bold text-ink">
+                  <p className="text-sm font-semibold text-ink">
                     {reported?.full_name ?? "Unknown"}{" "}
                     <span className="font-semibold text-terracotta">· {r.reason}</span>
                   </p>
                   {r.status === "open" ? (
                     <button
                       onClick={() => resolveReport(r.id)}
-                      className="rounded-full bg-terracotta px-4 py-2 text-xs font-bold text-white hover:bg-terracotta-deep"
+                      className="rounded-lg bg-terracotta px-4 py-2 text-xs font-semibold text-white hover:bg-terracotta-deep"
                     >
                       Mark resolved
                     </button>
                   ) : (
-                    <span className="text-xs font-bold text-sage-deep">✓ Resolved</span>
+                    <span className="text-xs font-semibold text-sage-deep">✓ Resolved</span>
                   )}
                 </div>
                 {r.details && <p className="mt-2 text-sm text-ink-soft">“{r.details}”</p>}

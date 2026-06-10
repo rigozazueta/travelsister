@@ -136,7 +136,7 @@ export default function OnboardingPage() {
     <div className="texture-grain min-h-screen">
       <header className="mx-auto flex max-w-xl items-center justify-between px-5 py-6">
         <Logo />
-        <span className="text-xs font-bold uppercase tracking-[0.16em] text-ink-soft">
+        <span className="text-xs font-semibold uppercase tracking-[0.16em] text-ink-soft">
           {step + 1} / {TOTAL_STEPS}
         </span>
       </header>
@@ -144,7 +144,7 @@ export default function OnboardingPage() {
       <div className="mx-auto max-w-xl px-5">
         <div className="h-1.5 overflow-hidden rounded-full bg-sand">
           <div
-            className="h-full rounded-full bg-terracotta transition-all duration-500"
+            className="h-full rounded-lg bg-terracotta transition-all duration-500"
             style={{ width: `${((step + 1) / TOTAL_STEPS) * 100}%` }}
           />
         </div>
@@ -153,7 +153,7 @@ export default function OnboardingPage() {
       <main className="mx-auto max-w-xl px-5 pb-24 pt-8">
         {step === 0 && (
           <section className="animate-rise space-y-6">
-            <h1 className="font-display text-3xl font-semibold leading-tight text-ink">
+            <h1 className="font-display text-[2rem] font-light tracking-[-0.01em] leading-tight text-ink">
               First, the promise that makes
               <span className="italic text-terracotta"> all of this work.</span>
             </h1>
@@ -162,7 +162,7 @@ export default function OnboardingPage() {
               trip with someone she met here. Joining means making this promise to
               every other woman in the community.
             </p>
-            <div className="space-y-3 rounded-3xl bg-white p-6 shadow-card">
+            <div className="space-y-3 rounded-xl bg-white p-6 shadow-card">
               <label className="flex items-start gap-3">
                 <input
                   type="checkbox"
@@ -195,7 +195,7 @@ export default function OnboardingPage() {
 
         {step === 1 && (
           <section className="animate-rise space-y-5">
-            <h1 className="font-display text-3xl font-semibold text-ink">The basics</h1>
+            <h1 className="font-display text-[2rem] font-light tracking-[-0.01em] text-ink">The basics</h1>
             <label className="block">
               <span className="text-sm font-semibold text-ink">Your name</span>
               <input
@@ -203,7 +203,7 @@ export default function OnboardingPage() {
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 placeholder="Maya Castillo"
-                className="mt-1.5 w-full rounded-2xl border border-sand-deep bg-white px-4 py-3 outline-none focus:border-terracotta"
+                className="mt-1.5 w-full rounded-lg border border-ink/15 bg-white px-4 py-3 outline-none focus:border-terracotta"
               />
             </label>
             <div className="grid grid-cols-2 gap-4">
@@ -216,7 +216,7 @@ export default function OnboardingPage() {
                   value={age}
                   onChange={(e) => setAge(e.target.value)}
                   placeholder="29"
-                  className="mt-1.5 w-full rounded-2xl border border-sand-deep bg-white px-4 py-3 outline-none focus:border-terracotta"
+                  className="mt-1.5 w-full rounded-lg border border-ink/15 bg-white px-4 py-3 outline-none focus:border-terracotta"
                 />
               </label>
               <label className="block">
@@ -226,7 +226,7 @@ export default function OnboardingPage() {
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                   placeholder="Denver, CO"
-                  className="mt-1.5 w-full rounded-2xl border border-sand-deep bg-white px-4 py-3 outline-none focus:border-terracotta"
+                  className="mt-1.5 w-full rounded-lg border border-ink/15 bg-white px-4 py-3 outline-none focus:border-terracotta"
                 />
               </label>
             </div>
@@ -248,7 +248,7 @@ export default function OnboardingPage() {
 
         {step === 2 && (
           <section className="animate-rise space-y-6">
-            <h1 className="font-display text-3xl font-semibold text-ink">Your vibe</h1>
+            <h1 className="font-display text-[2rem] font-light tracking-[-0.01em] text-ink">Your vibe</h1>
             <div>
               <span className="text-sm font-semibold text-ink">
                 What do you love doing? <span className="text-ink-soft">(pick at least 2)</span>
@@ -316,12 +316,12 @@ export default function OnboardingPage() {
                     }
                   }}
                   placeholder="Add your own…"
-                  className="flex-1 rounded-2xl border border-sand-deep bg-white px-4 py-2.5 text-sm outline-none focus:border-terracotta"
+                  className="flex-1 rounded-lg border border-ink/15 bg-white px-4 py-2.5 text-sm outline-none focus:border-terracotta"
                 />
                 <button
                   type="button"
                   onClick={addCustomDestination}
-                  className="rounded-2xl bg-sand px-4 text-sm font-bold text-ink hover:bg-sand-deep"
+                  className="rounded-2xl bg-sand px-4 text-sm font-semibold text-ink hover:bg-sand-deep"
                 >
                   Add
                 </button>
@@ -332,7 +332,7 @@ export default function OnboardingPage() {
 
         {step === 3 && (
           <section className="animate-rise space-y-5">
-            <h1 className="font-display text-3xl font-semibold text-ink">Your story</h1>
+            <h1 className="font-display text-[2rem] font-light tracking-[-0.01em] text-ink">Your story</h1>
             <label className="block">
               <span className="text-sm font-semibold text-ink">
                 Bio <span className="text-ink-soft">(at least 20 characters)</span>
@@ -342,14 +342,14 @@ export default function OnboardingPage() {
                 onChange={(e) => setBio(e.target.value)}
                 rows={4}
                 placeholder="Yoga teacher who plans trips around farmers markets and sunrise hikes…"
-                className="mt-1.5 w-full rounded-2xl border border-sand-deep bg-white px-4 py-3 outline-none focus:border-terracotta"
+                className="mt-1.5 w-full rounded-lg border border-ink/15 bg-white px-4 py-3 outline-none focus:border-terracotta"
               />
             </label>
             <div className="space-y-2 rounded-2xl bg-white p-4 shadow-card">
               <select
                 value={prompt1}
                 onChange={(e) => setPrompt1(e.target.value)}
-                className="w-full rounded-xl border border-sand-deep bg-cream px-3 py-2 text-sm font-semibold outline-none"
+                className="w-full rounded-lg border border-ink/15 bg-cream px-3 py-2 text-sm font-semibold outline-none"
               >
                 {PROFILE_PROMPTS.map((p) => (
                   <option key={p}>{p}</option>
@@ -360,14 +360,14 @@ export default function OnboardingPage() {
                 value={answer1}
                 onChange={(e) => setAnswer1(e.target.value)}
                 placeholder="Your answer…"
-                className="w-full rounded-xl border border-sand-deep px-3 py-2 text-sm outline-none focus:border-terracotta"
+                className="w-full rounded-lg border border-ink/15 px-3 py-2 text-sm outline-none focus:border-terracotta"
               />
             </div>
             <div className="space-y-2 rounded-2xl bg-white p-4 shadow-card">
               <select
                 value={prompt2}
                 onChange={(e) => setPrompt2(e.target.value)}
-                className="w-full rounded-xl border border-sand-deep bg-cream px-3 py-2 text-sm font-semibold outline-none"
+                className="w-full rounded-lg border border-ink/15 bg-cream px-3 py-2 text-sm font-semibold outline-none"
               >
                 {PROFILE_PROMPTS.map((p) => (
                   <option key={p}>{p}</option>
@@ -378,7 +378,7 @@ export default function OnboardingPage() {
                 value={answer2}
                 onChange={(e) => setAnswer2(e.target.value)}
                 placeholder="Optional second answer…"
-                className="w-full rounded-xl border border-sand-deep px-3 py-2 text-sm outline-none focus:border-terracotta"
+                className="w-full rounded-lg border border-ink/15 px-3 py-2 text-sm outline-none focus:border-terracotta"
               />
             </div>
             <div>
@@ -401,7 +401,7 @@ export default function OnboardingPage() {
                 value={instagram}
                 onChange={(e) => setInstagram(e.target.value)}
                 placeholder="@yourhandle"
-                className="mt-1.5 w-full rounded-2xl border border-sand-deep bg-white px-4 py-3 outline-none focus:border-terracotta"
+                className="mt-1.5 w-full rounded-lg border border-ink/15 bg-white px-4 py-3 outline-none focus:border-terracotta"
               />
             </label>
             <p className="text-xs text-ink-soft">
@@ -421,7 +421,7 @@ export default function OnboardingPage() {
             type="button"
             onClick={() => setStep((s) => Math.max(0, s - 1))}
             className={cn(
-              "rounded-full px-5 py-3 text-sm font-bold text-ink-soft hover:bg-sand",
+              "rounded-full px-5 py-3 text-sm font-semibold text-ink-soft hover:bg-sand",
               step === 0 && "invisible"
             )}
           >
@@ -432,7 +432,7 @@ export default function OnboardingPage() {
               type="button"
               disabled={!stepValid}
               onClick={() => setStep((s) => s + 1)}
-              className="rounded-full bg-terracotta px-8 py-3 text-sm font-bold text-white transition-colors hover:bg-terracotta-deep disabled:cursor-not-allowed disabled:opacity-40"
+              className="rounded-lg bg-terracotta px-8 py-3 text-sm font-semibold text-white transition-colors hover:bg-terracotta-deep disabled:cursor-not-allowed disabled:opacity-40"
             >
               Continue →
             </button>
@@ -441,9 +441,9 @@ export default function OnboardingPage() {
               type="button"
               disabled={!stepValid || saving}
               onClick={finish}
-              className="rounded-full bg-terracotta px-8 py-3 text-sm font-bold text-white transition-colors hover:bg-terracotta-deep disabled:cursor-not-allowed disabled:opacity-40"
+              className="rounded-lg bg-terracotta px-8 py-3 text-sm font-semibold text-white transition-colors hover:bg-terracotta-deep disabled:cursor-not-allowed disabled:opacity-40"
             >
-              {saving ? "Saving…" : "Meet your sisters ✿"}
+              {saving ? "Saving…" : "Meet your sisters"}
             </button>
           )}
         </div>

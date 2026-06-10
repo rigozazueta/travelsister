@@ -59,7 +59,7 @@ export default function TripsPage() {
     return (
       <Link
         href={`/trips/${trip.slug}`}
-        className="group overflow-hidden rounded-3xl bg-white shadow-card transition-all hover:-translate-y-1 hover:shadow-soft"
+        className="group overflow-hidden rounded-xl bg-white shadow-card transition-all hover:-translate-y-1 hover:shadow-soft"
       >
         <div className="relative h-48 overflow-hidden bg-sand">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -74,12 +74,12 @@ export default function TripsPage() {
             {trip.location}
           </p>
           {trip.joined && (
-            <span className="absolute left-3 top-3 rounded-full bg-sage px-3 py-1 text-xs font-bold text-white">
+            <span className="absolute left-3 top-3 rounded-md bg-sage px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white">
               ✓ In this circle
             </span>
           )}
           {trip.spots_left <= 6 && (
-            <span className="absolute right-3 top-3 rounded-full bg-terracotta px-3 py-1 text-xs font-bold text-white">
+            <span className="absolute right-3 top-3 rounded-lg bg-terracotta px-3 py-1 text-xs font-semibold text-white">
               {trip.spots_left} spots left
             </span>
           )}
@@ -88,11 +88,11 @@ export default function TripsPage() {
           <p className="text-xs font-semibold uppercase tracking-[0.14em] text-sage-deep">
             {trip.dates}
           </p>
-          <h3 className="font-display text-xl font-semibold leading-snug text-ink">
+          <h3 className="font-display text-xl font-medium leading-snug text-ink">
             {trip.name}
           </h3>
           <div className="flex items-center justify-between pt-1.5">
-            <span className="text-sm font-bold text-ink">{trip.price}</span>
+            <span className="text-sm font-semibold text-ink">{trip.price}</span>
             <span className="text-xs font-semibold text-ink-soft">
               {trip.memberCount > 0
                 ? `${trip.memberCount} sister${trip.memberCount === 1 ? "" : "s"} in the circle`
@@ -108,7 +108,7 @@ export default function TripsPage() {
     <div className="space-y-10">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="font-display text-3xl font-semibold text-ink">Trips</h1>
+          <h1 className="font-display text-[2rem] font-light tracking-[-0.01em] text-ink">Trips</h1>
           <p className="mt-1 max-w-xl text-sm text-ink-soft">
             Real, hosted Nomara adventures. Join a trip circle to chat with the women
             going, then book your spot on nomaratravel.com.
@@ -118,7 +118,7 @@ export default function TripsPage() {
           href={nomaraLink("/", "trips-tab")}
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-full border border-ink/20 px-5 py-2.5 text-sm font-bold text-ink hover:bg-sand"
+          className="rounded-full border border-ink/20 px-5 py-2.5 text-sm font-semibold text-ink hover:bg-sand"
         >
           All trips on Nomara ↗
         </a>
@@ -126,8 +126,8 @@ export default function TripsPage() {
 
       {recommended.length > 0 && (
         <section>
-          <h2 className="mb-4 text-xs font-bold uppercase tracking-[0.16em] text-terracotta">
-            Matching your dream destinations ✨
+          <h2 className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-terracotta">
+            Matching your dream destinations
           </h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {recommended.map((t) => (
@@ -139,7 +139,7 @@ export default function TripsPage() {
 
       <section>
         {recommended.length > 0 && (
-          <h2 className="mb-4 text-xs font-bold uppercase tracking-[0.16em] text-ink-soft">
+          <h2 className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-ink-soft">
             More adventures
           </h2>
         )}

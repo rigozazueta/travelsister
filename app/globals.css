@@ -1,23 +1,26 @@
 @import "tailwindcss";
 
 @theme {
-  --color-cream: #fbf7f1;
-  --color-sand: #f1e8dc;
-  --color-sand-deep: #e5d7c5;
-  --color-ink: #2e2a25;
-  --color-ink-soft: #6b635a;
-  --color-terracotta: #c2664a;
-  --color-terracotta-deep: #a85539;
-  --color-blush: #e9c8b6;
-  --color-sage: #7e8f7c;
-  --color-sage-deep: #5f7060;
-  --color-gold: #c9a35c;
+  /* Warm ivory neutrals, espresso ink, one clay accent. Quiet by default. */
+  --color-cream: #faf8f3;
+  --color-sand: #f1ece3;
+  --color-sand-deep: #e3dccd;
+  --color-ink: #221d15;
+  --color-ink-soft: #7d7568;
+  --color-terracotta: #a35c3f;
+  --color-terracotta-deep: #84462e;
+  --color-blush: #ecdfd2;
+  --color-sage: #7c8674;
+  --color-sage-deep: #565f4e;
+  --color-gold: #b3995f;
+  --color-pine: #23271f;
 
-  --font-display: "Fraunces", "Georgia", "Times New Roman", serif;
-  --font-body: "Karla", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Fraunces Variable", "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "Manrope Variable", "Manrope", ui-sans-serif, system-ui, -apple-system, sans-serif;
 
-  --shadow-soft: 0 10px 40px -12px rgb(46 42 37 / 0.18);
-  --shadow-card: 0 4px 24px -6px rgb(46 42 37 / 0.12);
+  /* Premium = space and hairlines, not drop shadows. */
+  --shadow-soft: 0 24px 60px -28px rgb(34 29 21 / 0.22);
+  --shadow-card: 0 1px 2px rgb(34 29 21 / 0.05), 0 0 0 1px rgb(34 29 21 / 0.05);
 }
 
 html {
@@ -28,11 +31,15 @@ body {
   background: var(--color-cream);
   color: var(--color-ink);
   font-family: var(--font-body);
+  font-weight: 430;
   -webkit-font-smoothing: antialiased;
+  font-feature-settings: "ss01";
 }
 
 .font-display {
   font-family: var(--font-display);
+  font-variation-settings: "opsz" 72;
+  letter-spacing: -0.01em;
 }
 
 ::selection {
@@ -52,16 +59,13 @@ body {
 }
 
 .animate-rise {
-  animation: rise 0.5s ease-out both;
+  animation: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @keyframes pop {
   0% {
-    transform: scale(0.6);
+    transform: scale(0.92);
     opacity: 0;
-  }
-  70% {
-    transform: scale(1.04);
   }
   100% {
     transform: scale(1);
@@ -70,10 +74,19 @@ body {
 }
 
 .animate-pop {
-  animation: pop 0.35s ease-out both;
+  animation: pop 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+/* Soft dawn vignette in place of the old dot grid. */
 .texture-grain {
-  background-image: radial-gradient(rgb(46 42 37 / 0.04) 1px, transparent 1px);
-  background-size: 22px 22px;
+  background-image: radial-gradient(
+      900px 500px at 85% -5%,
+      rgb(163 92 63 / 0.05),
+      transparent 70%
+    ),
+    radial-gradient(700px 420px at -10% 30%, rgb(124 134 116 / 0.05), transparent 70%);
+}
+
+.hairline {
+  border: 1px solid rgb(34 29 21 / 0.08);
 }

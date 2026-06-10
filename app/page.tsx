@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Flower2, Leaf, Waves, Wind } from "lucide-react";
 import { Logo } from "@/components/Logo";
 import { TripCard } from "@/components/TripCard";
 import { EmailCapture } from "@/components/marketing/EmailCapture";
@@ -8,21 +9,25 @@ import type { Trip } from "@/lib/types";
 
 export const revalidate = 300;
 
+const PRACTICES = [
+  { Icon: Waves, name: "Surf", note: "Dawn patrol, better with company" },
+  { Icon: Flower2, name: "Yoga & Pilates", note: "Mat space saved for you" },
+  { Icon: Wind, name: "Breathwork", note: "Exhale somewhere beautiful" },
+  { Icon: Leaf, name: "Nervous system resets", note: "Cold water, sound baths, stillness" },
+];
+
 const STEPS = [
   {
     title: "Create your profile",
     body: "Share how you travel — your practices, your pace, the places calling you. Every member pledges that she's a woman and signs our community guidelines.",
-    emoji: "✿",
   },
   {
     title: "Match with travel sisters",
-    body: "We surface women who share your interests — morning pilates, sunset surf, breathwork on the beach — and your dream destinations. Connect when it feels right.",
-    emoji: "☼",
+    body: "We surface women who share your interests and your dream destinations — morning pilates, sunset surf, breathwork on the beach. Connect when it feels right.",
   },
   {
     title: "Meet on a Nomara trip",
-    body: "Turn a match into a real adventure. Join a small-group Nomara trip together — flights of stairs in Tuscany, waves in Costa Rica, your people included.",
-    emoji: "✈",
+    body: "Turn a match into a real adventure. Join a small-group, hosted Nomara trip together — logistics handled, your people included.",
   },
 ];
 
@@ -33,7 +38,7 @@ const SAFETY_POINTS = [
   },
   {
     title: "Connect on your terms",
-    body: "Messaging only unlocks when two women choose each other. No unsolicited DMs, ever.",
+    body: "Messaging only unlocks when two women choose each other. No unsolicited messages, ever.",
   },
   {
     title: "Hosted, not random",
@@ -54,23 +59,23 @@ export default async function LandingPage() {
   return (
     <div className="texture-grain">
       {/* Header */}
-      <header className="mx-auto flex max-w-6xl items-center justify-between px-5 py-5">
+      <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
         <Logo />
-        <nav className="hidden items-center gap-7 text-sm font-semibold text-ink-soft md:flex">
-          <a href="#how" className="hover:text-ink">How it works</a>
-          <a href="#trips" className="hover:text-ink">Trips</a>
-          <Link href="/safety" className="hover:text-ink">Safety</Link>
+        <nav className="hidden items-center gap-9 text-[12px] font-semibold uppercase tracking-[0.18em] text-ink-soft md:flex">
+          <a href="#how" className="transition-colors hover:text-ink">How it works</a>
+          <a href="#trips" className="transition-colors hover:text-ink">Trips</a>
+          <Link href="/safety" className="transition-colors hover:text-ink">Safety</Link>
         </nav>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
           <Link
             href="/sign-in"
-            className="rounded-full px-4 py-2 text-sm font-semibold text-ink hover:bg-sand"
+            className="px-4 py-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-ink transition-colors hover:text-terracotta"
           >
             Sign in
           </Link>
           <Link
             href="/sign-up"
-            className="rounded-full bg-ink px-5 py-2.5 text-sm font-bold text-cream transition-colors hover:bg-terracotta"
+            className="rounded-lg bg-ink px-5 py-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-cream transition-colors hover:bg-terracotta-deep"
           >
             Join free
           </Link>
@@ -78,41 +83,42 @@ export default async function LandingPage() {
       </header>
 
       {/* Hero */}
-      <section className="mx-auto max-w-6xl px-5 pb-16 pt-10 md:pt-16">
-        <div className="grid items-center gap-12 md:grid-cols-2">
-          <div className="animate-rise space-y-6">
-            <p className="inline-flex items-center gap-2 rounded-full border border-sand-deep bg-white/70 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.16em] text-sage-deep">
+      <section className="mx-auto max-w-6xl px-6 pb-24 pt-14 md:pt-20">
+        <div className="grid items-center gap-14 md:grid-cols-[1.05fr_0.95fr]">
+          <div className="animate-rise space-y-8">
+            <p className="flex items-center gap-4 text-[11px] font-semibold uppercase tracking-[0.28em] text-sage-deep">
+              <span className="h-px w-10 bg-sage-deep/50" />
               A women-only travel community
             </p>
-            <h1 className="font-display text-5xl font-semibold leading-[1.05] tracking-tight text-ink md:text-6xl">
+            <h1 className="font-display text-[3.4rem] font-light leading-[1.02] tracking-[-0.02em] text-ink md:text-[4.6rem]">
               Never travel
               <br />
-              <span className="italic text-terracotta">alone</span> again.
+              <span className="font-normal italic text-terracotta">alone</span> again.
             </h1>
-            <p className="max-w-md text-lg leading-relaxed text-ink-soft">
+            <p className="max-w-md text-[1.05rem] leading-[1.75] text-ink-soft">
               TravelSister matches you with women who move like you do — yoga at
-              sunrise, surf at golden hour, pilates, breathwork, and nervous
-              system resets in beautiful places. Find her, then go.
+              sunrise, surf at golden hour, breathwork and slow mornings in
+              beautiful places. Find her, then go.
             </p>
-            <div className="flex flex-wrap items-center gap-4">
+            <div className="flex flex-wrap items-center gap-6 pt-2">
               <Link
                 href="/sign-up"
-                className="rounded-full bg-terracotta px-7 py-3.5 text-sm font-bold text-white shadow-soft transition-all hover:-translate-y-0.5 hover:bg-terracotta-deep"
+                className="rounded-lg bg-terracotta px-8 py-4 text-[12px] font-semibold uppercase tracking-[0.18em] text-white shadow-soft transition-all hover:-translate-y-0.5 hover:bg-terracotta-deep"
               >
                 Find your travel sisters
               </Link>
               <a
                 href="#trips"
-                className="text-sm font-bold text-ink underline-offset-4 hover:underline"
+                className="border-b border-ink/30 pb-0.5 text-[12px] font-semibold uppercase tracking-[0.18em] text-ink transition-colors hover:border-terracotta hover:text-terracotta"
               >
-                Browse women-friendly trips ↓
+                Browse the trips
               </a>
             </div>
-            <p className="text-xs text-ink-soft">
+            <p className="text-[12px] tracking-[0.02em] text-ink-soft">
               Free to join · Women only · By the team at{" "}
               <a
                 href={nomaraLink("/", "landing")}
-                className="font-semibold text-terracotta hover:underline"
+                className="font-semibold text-terracotta underline-offset-4 hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -121,75 +127,67 @@ export default async function LandingPage() {
             </p>
           </div>
 
-          {/* Activity collage */}
-          <div className="animate-rise grid grid-cols-2 gap-4 [animation-delay:120ms]">
-            <div className="space-y-4">
-              <div className="rounded-3xl bg-blush/60 p-6 shadow-card">
-                <p className="text-3xl">🏄‍♀️</p>
-                <p className="mt-3 font-display text-lg font-semibold text-ink">Surf sisters</p>
-                <p className="text-sm text-ink-soft">Dawn patrol is better with company.</p>
-              </div>
-              <div className="rounded-3xl bg-sage/20 p-6 shadow-card">
-                <p className="text-3xl">🌿</p>
-                <p className="mt-3 font-display text-lg font-semibold text-ink">
-                  Nervous system resets
-                </p>
-                <p className="text-sm text-ink-soft">
-                  Breathwork, cold plunges, sound baths — co-regulation included.
-                </p>
-              </div>
+          {/* Arch composition */}
+          <div className="animate-rise relative mx-auto w-full max-w-[420px] [animation-delay:150ms]">
+            <div className="relative overflow-hidden rounded-t-[999px] rounded-b-2xl bg-gradient-to-b from-[#e8c9b2] via-[#cb8f6b] to-[#5f6b58] pb-[118%] shadow-soft">
+              {/* sun */}
+              <div className="absolute left-1/2 top-[16%] h-24 w-24 -translate-x-1/2 rounded-full bg-cream/85 blur-[1px]" />
+              {/* horizon lines */}
+              <svg
+                className="absolute inset-x-0 bottom-0 h-[55%] w-full text-cream/35"
+                viewBox="0 0 400 260"
+                fill="none"
+                preserveAspectRatio="none"
+              >
+                <path d="M0 40 Q 100 18 200 40 T 400 40" stroke="currentColor" strokeWidth="1.4" />
+                <path d="M0 90 Q 100 66 200 90 T 400 90" stroke="currentColor" strokeWidth="1.4" />
+                <path d="M0 140 Q 100 114 200 140 T 400 140" stroke="currentColor" strokeWidth="1.4" />
+                <path d="M0 190 Q 100 162 200 190 T 400 190" stroke="currentColor" strokeWidth="1.4" />
+                <path d="M0 240 Q 100 210 200 240 T 400 240" stroke="currentColor" strokeWidth="1.4" />
+              </svg>
             </div>
-            <div className="space-y-4 pt-8">
-              <div className="rounded-3xl bg-gold/20 p-6 shadow-card">
-                <p className="text-3xl">🧘‍♀️</p>
-                <p className="mt-3 font-display text-lg font-semibold text-ink">Yoga & pilates</p>
-                <p className="text-sm text-ink-soft">Mat space saved for you.</p>
-              </div>
-              <div className="rounded-3xl bg-white p-6 shadow-card">
-                <p className="text-3xl">🌅</p>
-                <p className="mt-3 font-display text-lg font-semibold text-ink">Real trips</p>
-                <p className="text-sm text-ink-soft">
-                  Hosted small-group adventures by Nomara.
-                </p>
-              </div>
-            </div>
+            <figcaption className="absolute -left-4 bottom-10 hidden w-56 rounded-xl bg-cream/95 p-5 shadow-soft ring-1 ring-ink/5 backdrop-blur sm:block">
+              <p className="font-display text-[1.05rem] italic leading-snug text-ink">
+                “Found my surf sister in March. Tamarindo in December.”
+              </p>
+              <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-ink-soft">
+                The whole idea
+              </p>
+            </figcaption>
           </div>
         </div>
 
-        {/* Activity ribbon */}
-        <div className="mt-16 flex flex-wrap items-center justify-center gap-2.5">
-          {ACTIVITIES.map((a) => (
-            <span
-              key={a.name}
-              className="inline-flex items-center gap-1.5 rounded-full border border-sand-deep bg-white/80 px-4 py-2 text-sm font-semibold text-ink-soft"
-            >
-              <span>{a.emoji}</span> {a.name}
-            </span>
+        {/* Practices index */}
+        <div className="mt-24 grid grid-cols-2 gap-px overflow-hidden rounded-xl bg-ink/8 ring-1 ring-ink/8 lg:grid-cols-4">
+          {PRACTICES.map((p) => (
+            <div key={p.name} className="bg-cream px-6 py-7">
+              <p.Icon className="h-5 w-5 text-terracotta" strokeWidth={1.5} />
+              <p className="mt-4 font-display text-lg font-medium text-ink">{p.name}</p>
+              <p className="mt-1 text-[13px] leading-relaxed text-ink-soft">{p.note}</p>
+            </div>
           ))}
         </div>
+        <p className="mt-5 text-center text-[11px] font-medium uppercase tracking-[0.22em] text-ink-soft/80">
+          {ACTIVITIES.map((a) => a.name).join("  ·  ")}
+        </p>
       </section>
 
       {/* How it works */}
-      <section id="how" className="bg-white/60 py-20">
-        <div className="mx-auto max-w-6xl px-5">
-          <h2 className="font-display text-center text-4xl font-semibold text-ink">
+      <section id="how" className="border-y border-ink/8 bg-white/50 py-24">
+        <div className="mx-auto max-w-6xl px-6">
+          <h2 className="font-display text-center text-4xl font-light tracking-[-0.01em] text-ink md:text-5xl">
             Find her, <span className="italic text-terracotta">then go.</span>
           </h2>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
+          <div className="mt-16 grid gap-12 md:grid-cols-3 md:gap-8">
             {STEPS.map((step, i) => (
-              <div key={step.title} className="rounded-3xl bg-cream p-7 shadow-card">
-                <div className="flex items-center gap-3">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-terracotta text-lg text-white">
-                    {step.emoji}
-                  </span>
-                  <span className="text-xs font-bold uppercase tracking-[0.18em] text-ink-soft">
-                    Step {i + 1}
-                  </span>
-                </div>
-                <h3 className="mt-4 font-display text-2xl font-semibold text-ink">
+              <div key={step.title} className="border-t border-ink/15 pt-6">
+                <p className="font-display text-sm italic text-terracotta">
+                  {String(i + 1).padStart(2, "0")}
+                </p>
+                <h3 className="mt-3 font-display text-2xl font-medium text-ink">
                   {step.title}
                 </h3>
-                <p className="mt-2 leading-relaxed text-ink-soft">{step.body}</p>
+                <p className="mt-3 text-[15px] leading-[1.8] text-ink-soft">{step.body}</p>
               </div>
             ))}
           </div>
@@ -197,31 +195,42 @@ export default async function LandingPage() {
       </section>
 
       {/* Safety */}
-      <section className="py-20">
-        <div className="mx-auto max-w-6xl px-5">
-          <div className="grid items-start gap-10 md:grid-cols-[1fr_1.2fr]">
-            <div>
-              <h2 className="font-display text-4xl font-semibold leading-tight text-ink">
+      <section className="py-24">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="grid items-start gap-12 md:grid-cols-[1fr_1.2fr]">
+            <div className="md:sticky md:top-10">
+              <p className="flex items-center gap-4 text-[11px] font-semibold uppercase tracking-[0.28em] text-sage-deep">
+                <span className="h-px w-10 bg-sage-deep/50" />
+                Safety is the foundation
+              </p>
+              <h2 className="mt-6 font-display text-4xl font-light leading-[1.1] text-ink md:text-5xl">
                 Built by women,
                 <br />
                 <span className="italic text-sage-deep">for women.</span>
               </h2>
-              <p className="mt-4 max-w-sm leading-relaxed text-ink-soft">
-                Safety isn’t a feature here — it’s the foundation. Read our full{" "}
-                <Link href="/safety" className="font-semibold text-terracotta hover:underline">
+              <p className="mt-6 max-w-sm text-[15px] leading-[1.8] text-ink-soft">
+                Read our full{" "}
+                <Link
+                  href="/safety"
+                  className="font-semibold text-terracotta underline-offset-4 hover:underline"
+                >
                   community guidelines
-                </Link>
-                .
+                </Link>{" "}
+                — every member agrees to them before she joins.
               </p>
             </div>
-            <div className="space-y-4">
-              {SAFETY_POINTS.map((p) => (
+            <div>
+              {SAFETY_POINTS.map((p, i) => (
                 <div
                   key={p.title}
-                  className="rounded-2xl border border-sand-deep bg-white/70 p-5"
+                  className={
+                    i === 0 ? "py-7" : "border-t border-ink/10 py-7"
+                  }
                 >
-                  <h3 className="font-display text-lg font-semibold text-ink">{p.title}</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-ink-soft">{p.body}</p>
+                  <h3 className="font-display text-xl font-medium text-ink">{p.title}</h3>
+                  <p className="mt-2 max-w-lg text-[15px] leading-[1.8] text-ink-soft">
+                    {p.body}
+                  </p>
                 </div>
               ))}
             </div>
@@ -230,17 +239,18 @@ export default async function LandingPage() {
       </section>
 
       {/* Featured trips */}
-      <section id="trips" className="bg-ink py-20">
-        <div className="mx-auto max-w-6xl px-5">
-          <div className="flex flex-wrap items-end justify-between gap-4">
+      <section id="trips" className="bg-pine py-24">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-blush">
+              <p className="flex items-center gap-4 text-[11px] font-semibold uppercase tracking-[0.28em] text-gold">
+                <span className="h-px w-10 bg-gold/50" />
                 Hosted by Nomara
               </p>
-              <h2 className="mt-2 font-display text-4xl font-semibold text-cream">
-                Trips with your name on them
+              <h2 className="mt-5 font-display text-4xl font-light text-cream md:text-5xl">
+                Trips with your <span className="italic">name on them.</span>
               </h2>
-              <p className="mt-2 max-w-lg text-cream/70">
+              <p className="mt-4 max-w-lg text-[15px] leading-[1.8] text-cream/60">
                 Small groups, real hosts, zero logistics on your plate. Match with a
                 sister inside the app, then book the same trip together.
               </p>
@@ -249,17 +259,18 @@ export default async function LandingPage() {
               href={nomaraLink("/", "landing-trips")}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full border border-cream/30 px-5 py-2.5 text-sm font-bold text-cream transition-colors hover:bg-cream hover:text-ink"
+              className="rounded-lg border border-cream/25 px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-cream transition-colors hover:bg-cream hover:text-ink"
             >
-              See all trips on Nomara ↗
+              All trips on Nomara ↗
             </a>
           </div>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {trips.map((trip) => (
               <TripCard
                 key={trip.id}
                 trip={trip}
                 external
+                tone="dark"
                 href={nomaraLink(`/trips/${trip.slug}`, "landing-trips")}
               />
             ))}
@@ -268,32 +279,34 @@ export default async function LandingPage() {
       </section>
 
       {/* Email capture */}
-      <section className="py-20">
-        <div className="mx-auto max-w-2xl px-5 text-center">
-          <h2 className="font-display text-3xl font-semibold text-ink md:text-4xl">
-            Not ready to join yet?
+      <section className="py-24">
+        <div className="mx-auto max-w-2xl px-6 text-center">
+          <h2 className="font-display text-3xl font-light text-ink md:text-4xl">
+            Not ready to join <span className="italic">yet?</span>
           </h2>
-          <p className="mx-auto mt-3 max-w-md text-ink-soft">
+          <p className="mx-auto mt-4 max-w-md text-[15px] leading-[1.8] text-ink-soft">
             Get the next women’s trip drops, retreat invites, and community updates
             from Nomara. No spam, just sunshine.
           </p>
-          <div className="mt-7">
+          <div className="mt-9">
             <EmailCapture source="landing" />
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-sand-deep bg-white/60 py-10">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-5 px-5 md:flex-row">
+      <footer className="border-t border-ink/8 py-12">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-6 md:flex-row">
           <Logo />
-          <nav className="flex flex-wrap items-center gap-6 text-sm font-semibold text-ink-soft">
-            <Link href="/safety" className="hover:text-ink">Safety & guidelines</Link>
+          <nav className="flex flex-wrap items-center gap-8 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-soft">
+            <Link href="/safety" className="transition-colors hover:text-ink">
+              Safety & guidelines
+            </Link>
             <a
               href={nomaraLink("/", "footer")}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-ink"
+              className="transition-colors hover:text-ink"
             >
               nomaratravel.com ↗
             </a>
@@ -301,12 +314,12 @@ export default async function LandingPage() {
               href={NOMARA_INSTAGRAM}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-ink"
+              className="transition-colors hover:text-ink"
             >
               Instagram ↗
             </a>
           </nav>
-          <p className="text-xs text-ink-soft">
+          <p className="text-[11px] tracking-[0.04em] text-ink-soft">
             © {new Date().getFullYear()} Nomara · {NOMARA_URL.replace("https://", "")}
           </p>
         </div>
